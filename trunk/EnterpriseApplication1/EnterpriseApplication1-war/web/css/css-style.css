@@ -1,0 +1,263 @@
+#page-container{
+	width :800px;
+	margin:auto;
+}
+
+.hidden{
+	display:none;
+}
+
+h1{
+margin:0;
+padding:0;
+float:right;
+margin-top:57px;
+padding-right:31px;
+}
+
+html,body{
+margin:0;
+padding:0;
+}
+
+#main-nav{
+height:90px;
+padding-left:11px;	
+border-bottom: 1px solid #efefef;
+
+
+}
+
+#main-nav dl{
+margin:0;
+padding:0;
+}
+
+#main-nav dt{
+	float: left;
+	text-align: center;
+	height:80;
+}
+
+#main-nav dt a{
+	display: block;
+	height: 10px;
+	height /**/: 20px; /* IE 5/Win hack */
+	padding: 50px 0 0 0;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	text-align: center top;
+	font-family:Tahoma, Arial, Helvetica, Sans-serif;
+	font-size:19px;
+	color:#0000FF;
+	font-style: oblique;
+	text-decoration:none;
+
+}
+
+#main-nav dt a:hover{
+color:#F60;
+}
+
+#main-nav dt#home,
+#main-nav dt#home a{
+	width: 100px;
+
+}
+#main-nav dt#home hover,
+#main-nav dt#home a{
+	width: 100px;
+}
+
+#main-nav dt#about,
+#main-nav dt#about a{ 
+width: 100px; 
+}
+
+	 
+#main-nav dt#tour,
+#main-nav dt#tour a{ 
+width: 100px; 
+}
+	 
+#main-nav dt#car,
+#main-nav dt#car a{ 
+width: 100px; 
+}
+
+#main-nav dt#informationDesk,
+#main-nav dt#informationDesk a {
+	width: 250px;
+	
+}
+ 
+#main-nav dt#contact,
+#main-nav dt#contact a { 
+width: 100px; 
+}
+
+
+body.home dt#home,
+body.home dt#home a,
+body.about dt#about,
+body.about dt#about a,
+body.tour dt#tour,
+body.tour dt#tour a,
+body.car dt#car,
+body.car dt#car a ,
+body.informationDesk dt#informationDesk,
+body.informationDesk dt#informationDesk a ,
+body.contact dt#contact,
+body.contact dt#contact a
+{
+    background-position: 0 -10px;
+	}
+
+
+#header{
+height:150px;
+Background: #db6d16
+			url(../images/e2w-logo.jpg);
+width:760px;
+}
+
+#footer{
+clear:both;
+height:66px;
+}
+
+#sidebar-a{
+float:right;
+width:280px;
+line-height:18px;
+border-bottom: 1px solid #efefef;
+}
+
+#content{
+margin-right:280px;
+line-height:18px;
+}
+
+#content h2{
+margin:0;
+padding:0;
+padding-bottom:15px;
+}
+
+#content p{
+margin:0;
+padding:0;
+padding-bottom:15px;
+word-wrap: break-word;
+}
+
+body{
+		font-family: Arial, Helvetica, Verdana, Sans-serif;
+	    font-size: 12px;
+	    color: #333333;
+	    background: #ffffff;
+}
+
+#sidebar-a .padding{
+padding:25px;
+}
+
+#content .padding{
+padding:25px;
+}
+
+#footer{
+clear:both;
+height:66px;
+font-family:Tahoma, Arial, Helvetica, Sans-serif;
+font-size:12px;
+color:#c9c9c9;
+border-top: 1px solid #efefef;
+padding: 13px 25px;
+line-height: 18px;
+}
+
+#footer a{
+color:#c9c9c9;
+text-decoration:none;
+}
+
+#footer a:hover{
+color:#db6d16;
+}
+
+#footer #altnav{
+width:350px;
+float:right;
+text-align:right;
+}
+
+#tour-items{
+margin-right:280px;
+line-height:18px;
+border-top: 1px solid #efefef;
+border-bottom: 1px solid #efefef;
+}
+#tour-items h2{
+text-align:left;
+padding-left:15px;	
+}
+
+#car-items h2{
+text-align:left;
+padding-left:15px;	
+}
+
+#tour-items a{
+text-decoration:none;
+color:#00F;
+}
+
+#tour-items a:hover{
+color:#db6d16;
+}
+
+#car-items a{
+text-decoration:none;
+color:#00F;
+}
+
+#car-items a:hover{
+color:#db6d16;
+}
+
+#sidebar-a table{
+margin-right:30px;
+}
+
+#testTable { 
+            width : 400px;
+            margin-left: 20px;
+            margin-right: auto; 
+          }
+          
+           #tablePagination { 
+            background-color:  Transparent; 
+            font-size: 0.8em; 
+            padding: 0px 5px; 
+            height: 20px
+          }
+          
+          #tablePagination_paginater { 
+            margin-left: auto; 
+            margin-right: auto;
+          }
+          
+          #tablePagination img { 
+            padding: 0px 2px; 
+          }
+          
+          #tablePagination_perPage { 
+            float: left;
+            visibility: hidden;
+          }
+          
+          #tablePagination_paginater { 
+            float: right; 
+          }
+  
