@@ -18,7 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import tuan.entity.CarOrder;
+import ngoc.entity.CarOrder;
 
 /**
  *

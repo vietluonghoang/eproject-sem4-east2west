@@ -1,7 +1,7 @@
 <%--
     Document   : insertCar
     Created on : Apr 14, 2013, 10:49:51 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,7 +22,7 @@
         <%@include file="templateAdminHeader.jsp" %>
 
 
-        You have logon as <%= tuanStatefulRemote.get$username() %>
+        You have logon as <%= ngocStatefulRemote.get$username() %>
         <br/>
         <br/>
         Please choose where you want to go from the navigation bar above

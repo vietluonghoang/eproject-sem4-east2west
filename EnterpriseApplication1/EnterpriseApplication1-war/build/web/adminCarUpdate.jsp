@@ -1,11 +1,11 @@
 <%-- 
     Document   : adminCarUpdate
     Created on : Apr 14, 2013, 9:37:13 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,9 +27,9 @@
 
         <%
             //Context ctx = new InitialContext();
-            TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+            NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
             int $carID = Integer.parseInt(request.getParameter("$carID"));
-            Car car = tuanStatelessRemote.searchReturn1($carID);
+            Car car = ngocStatelessRemote.searchReturn1($carID);
         %>
         <form action="adminCarUploadImage.jsp" method="post" enctype="multipart/form-data">
             <input type="hidden" name="$carID" value="<%=car.getCarID()%>" />

@@ -1,12 +1,12 @@
 <%-- 
     Document   : carReportSearch
     Created on : Apr 25, 2013, 4:03:34 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -60,16 +60,16 @@ $("#datepicker4").datepicker({dateFormat: 'yy/mm/dd'});
         <%
             Context ctx = new InitialContext();
             
-            TuanStatefulRemote tuanStatefulRemote = (TuanStatefulRemote)ctx.lookup("TuanStatefulRemote");
-            tuanStatefulRemote = (TuanStatefulRemote)session.getAttribute("admin");
-            if (tuanStatefulRemote == null) {
+            NgocStatefulRemote ngocStatefulRemote = (NgocStatefulRemote)ctx.lookup("NgocStatefulRemote");
+            ngocStatefulRemote = (NgocStatefulRemote)session.getAttribute("admin");
+            if (ngocStatefulRemote == null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
                     window.location.href = "adminLogin.jsp"
                 </script>
                 <%
-            } else if (tuanStatefulRemote.get$username()==null) {
+            } else if (ngocStatefulRemote.get$username()==null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
@@ -80,7 +80,7 @@ $("#datepicker4").datepicker({dateFormat: 'yy/mm/dd'});
 
         String $today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         %>
-        <form action="TuanServlet" method="post" target="_blank">
+        <form action="NgocServlet" method="post" target="_blank">
             <strong>From</strong> <input name="$from" type="text" value="<%=$today%>" id="datepicker3" /><br/>
             <strong>To</strong>  <input name="$to" type="text" value="<%=$today%>" id="datepicker4" /><br/>
             <input type="submit" name="action" value="report" />

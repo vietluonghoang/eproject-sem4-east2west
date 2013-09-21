@@ -115,6 +115,7 @@ body.contact dt#contact a
 
 
 #header{
+top: 100px;
 height:150px;
 Background: #db6d16
 			url(../images/e2w-logo.jpg);
@@ -163,7 +164,7 @@ padding:25px;
 }
 
 #content .padding{
-padding:25px;
+/*padding:25px;*/
 }
 
 #footer{

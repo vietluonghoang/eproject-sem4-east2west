@@ -1,7 +1,7 @@
 
 <%@page import="java.text.ParseException"%>
 <%@page import="java.util.Random"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="java.util.Date"%>
 <%@page import="javax.naming.InitialContext"%>
@@ -85,7 +85,7 @@
 
 
                         Context ctx = new InitialContext();
-                        TuanStatelessRemote remote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+                        NgocStatelessRemote remote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
                         remote.insertHotel($name, $street, $star, $description, $image, $price);
                         %>insert successfully<%
                     }

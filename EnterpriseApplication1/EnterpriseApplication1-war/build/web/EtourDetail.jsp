@@ -353,7 +353,7 @@ Tour result = (Tour)request.getAttribute("tourDetailResult");
     <td colspan="2"><div align="center"><%=result.getPrice() %> $</div></td>
   </tr>
 </table>
-<div id="description-tour" style=" text-wrap; word-wrap:break-word;" >
+<div id="description-tour" style=" text-wrap: normal; word-wrap:break-word;" >
     <p><%=result.getDescripton() %></p>
 </div>
 <table width="150" border="0" align="right">

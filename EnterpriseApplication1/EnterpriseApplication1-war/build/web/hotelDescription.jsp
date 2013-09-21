@@ -1,12 +1,12 @@
 <%-- 
     Document   : carDescription
     Created on : Apr 15, 2013, 2:18:50 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Hotel"%>
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Hotel"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,9 +29,9 @@
 
         <%
             //Context ctx = new InitialContext();
-            TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+            NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
             int $hotelID = Integer.parseInt(request.getParameter("$hotelID"));
-            Hotel hotel = tuanStatelessRemote.searchReturn1Hotel($hotelID);
+            Hotel hotel = ngocStatelessRemote.searchReturn1Hotel($hotelID);
         %>
             <table border="0">
                 <tbody>
@@ -61,7 +61,7 @@
         <br/><br/>
         <img width="450px" src="images/<%= hotel.getHotelImage() %>" />
         <br/><br/>
-        <div style=" text-wrap; word-wrap:break-word;" >
+        <div style=" text-wrap: normal; word-wrap:break-word;" >
         <%= hotel.getHotelDescription() %>
         </div>
 

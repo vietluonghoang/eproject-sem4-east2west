@@ -1,13 +1,13 @@
 <%-- 
     Document   : carReportShow
     Created on : Apr 25, 2013, 5:35:27 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Car"%>
+<%@page import="ngoc.entity.Car"%>
 <%@page import="javax.management.Query"%>
-<%@page import="tuan.entity.CarReportDTO"%>
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.entity.CarReportDTO"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.Date"%>
@@ -33,7 +33,7 @@
     <body>
         <%
         Context ctx = new InitialContext();
-        TuanStatefulRemote tuanStateful = (TuanStatefulRemote) ctx.lookup("TuanStatefulRemote");
+        NgocStatefulRemote ngocStateful = (NgocStatefulRemote) ctx.lookup("NgocStatefulRemote");
         CarReportDTO[] top10 = (CarReportDTO[])request.getAttribute("INFO");
         Car car;
         if (top10==null) {
@@ -73,7 +73,7 @@
                 <%
                 int no = 0;
                 for (int i = top10[0].getLength() - 1;i >= 0 ; i--) {
-                    car = tuanStateful.findByCarID(top10[i].getCarID());
+                    car = ngocStateful.findByCarID(top10[i].getCarID());
                     no++;
                     if (no==11) {
                         return;

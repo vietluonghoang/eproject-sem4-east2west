@@ -4,7 +4,7 @@
     Author     : JAKE
 --%>
 
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -114,16 +114,16 @@ function printPage(id)
              <%
             Context ctx = new InitialContext();
 
-            TuanStatefulRemote tuanStatefulRemote = (TuanStatefulRemote)ctx.lookup("TuanStatefulRemote");
-            tuanStatefulRemote = (TuanStatefulRemote)session.getAttribute("admin");
-            if (tuanStatefulRemote == null) {
+            NgocStatefulRemote ngocStatefulRemote = (NgocStatefulRemote)ctx.lookup("NgocStatefulRemote");
+            ngocStatefulRemote = (NgocStatefulRemote)session.getAttribute("admin");
+            if (ngocStatefulRemote == null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
                     window.location.href = "adminLogin.jsp"
                 </script>
                 <%
-            } else if (tuanStatefulRemote.get$username()==null) {
+            } else if (ngocStatefulRemote.get$username()==null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">

@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Apr 14, 2013, 10:45:29 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

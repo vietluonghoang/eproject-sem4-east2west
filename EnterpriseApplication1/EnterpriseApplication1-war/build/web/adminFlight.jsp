@@ -62,7 +62,6 @@
           #tablePagination_paginater {
             float: right;
           }
-          <script>
 
          </style>
          <script>

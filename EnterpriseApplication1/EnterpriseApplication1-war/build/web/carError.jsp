@@ -1,7 +1,7 @@
 <%-- 
     Document   : adminCarSearch
     Created on : Apr 14, 2013, 11:54:35 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

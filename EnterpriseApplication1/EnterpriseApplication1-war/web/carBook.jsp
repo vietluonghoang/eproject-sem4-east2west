@@ -1,14 +1,14 @@
 <%--
     Document   : carDescription
     Created on : Apr 15, 2013, 2:18:50 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,12 +38,12 @@
                 %>you have to login in<%
             } else {
             //Context ctx = new InitialContext();
-            TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+            NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
             //if (request.getParameter("$carID")==null) {
                 //request.getRequestDispatcher("carSearch.jsp").forward(request, response);
             //}
             int $carID = Integer.parseInt(request.getParameter("$carID"));
-            Car car = tuanStatelessRemote.searchReturn1($carID);
+            Car car = ngocStatelessRemote.searchReturn1($carID);
             String $today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         %>
             <table border="0">
@@ -84,7 +84,7 @@
                         <td>price</td>
                         <td><%=car.getPrice()%> USD</td>
                     </tr>
-                    <form action="TuanServlet" method="post">
+                    <form action="NgocServlet" method="post">
                             <input type="hidden" name="$carID" value="<%=car.getCarID() %>" />
                             <input type="hidden" name="$model" value="<%=car.getModel() %>" />
                             <input type="hidden" name="$price" value="<%=car.getPrice()%>" />

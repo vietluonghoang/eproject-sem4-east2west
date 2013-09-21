@@ -1,11 +1,11 @@
 <%-- 
     Document   : carOrderSearch
     Created on : Apr 17, 2013, 2:32:38 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.CarOrder"%>
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.entity.CarOrder"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -38,7 +38,7 @@
                 %>you have to login in<%
             } else {
         %>
-        <form action="TuanServlet" method="post">
+        <form action="NgocServlet" method="post">
             <input type="hidden" name="$userID" value="<%= cusINFO.getUserID() %>" />
             From <input name="$from" type="text" value="<%=$today%>" id="datepicker3" />
             to <input name="$to" type="text" value="<%=$today%>" id="datepicker4" />
@@ -47,13 +47,13 @@
         <br/><br/>
         <%
         //Context ctx = new InitialContext();
-        TuanStatefulRemote tuanStatelessRemote = (TuanStatefulRemote) ctx.lookup("TuanStatefulRemote");
+        NgocStatefulRemote ngocStatelessRemote = (NgocStatefulRemote) ctx.lookup("NgocStatefulRemote");
 
-        tuanStatelessRemote.autoFinishOrder();
+        ngocStatelessRemote.autoFinishOrder();
 
         CarOrder[] result;
         if(request.getAttribute("INFO") == null) {
-            result = tuanStatelessRemote.searchCarOrder(cusINFO.getUserID(), null, null);
+            result = ngocStatelessRemote.searchCarOrder(cusINFO.getUserID(), null, null);
         } else {
             result = (CarOrder[])request.getAttribute("INFO");
         }
@@ -91,7 +91,7 @@
                         if(result[i].getStatus().equals("waiting")) {
                             
                         %>
-                        <form action="TuanServlet" method="post" onsubmit=
+                        <form action="NgocServlet" method="post" onsubmit=
                             "return confirm('Refund:if order is placed today:70%, yesterday:80%, before yesterday: 90%');">
                             <input type="hidden" name="$carOrderID" value="<%=result[i].getCarOrderID()%>" />
                             <input type="submit" name="action" value="cancel" id="btCancel2"/>

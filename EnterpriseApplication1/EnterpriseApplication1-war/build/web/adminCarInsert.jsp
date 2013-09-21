@@ -1,7 +1,7 @@
 <%-- 
     Document   : insertCar
     Created on : Apr 14, 2013, 10:49:51 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

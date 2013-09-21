@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author JAKE
  */
-@Stateful
+@Stateful(name = "CartBeanJNDI",mappedName = "CartBeanJNDI")
 public class CartSessionBean implements CartSessionBeanRemote, CartSessionBeanLocal {
     @PersistenceContext(unitName = "east2west-ejbPU")
     private EntityManager em;

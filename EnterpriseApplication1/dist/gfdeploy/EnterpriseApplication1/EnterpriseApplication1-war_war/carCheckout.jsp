@@ -1,14 +1,14 @@
 <%-- 
     Document   : carShoppingCart
     Created on : Apr 15, 2013, 4:42:00 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page import="e2w.enitites.Customer"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,15 +36,15 @@
                 %>you have to login in<%
             } else {
         //Context ctx = new InitialContext();
-        TuanStatefulRemote tuanStateful = (TuanStatefulRemote) ctx.lookup("TuanStatefulRemote");
-        tuanStateful = (TuanStatefulRemote)session.getAttribute("carCart");
-        if (tuanStateful == null) {
+        NgocStatefulRemote ngocStateful = (NgocStatefulRemote) ctx.lookup("NgocStatefulRemote");
+        ngocStateful = (NgocStatefulRemote)session.getAttribute("carCart");
+        if (ngocStateful == null) {
         %>
             Cart is empty
         <%
         } else {
             int $orderCost=0;
-            Customer customer = tuanStateful.getBillingAddress(cusINFO.getUserID());
+            Customer customer = ngocStateful.getBillingAddress(cusINFO.getUserID());
         %>
         name: <%=customer.getFullname()%><br/>
         Address: <%=customer.getAddress()%><br/>
@@ -63,25 +63,25 @@
             </thead>
             <tbody>
                 <%
-                for (int i=0;i<tuanStateful.get$length();i++) {
-                    if (!tuanStateful.get$orderDTO()[i].is$deleted()) {
-                    String $pickup = new SimpleDateFormat("yyyy/MM/dd").format(tuanStateful.get$orderDTO()[i].get$pickup());
-                    String $dropoff = new SimpleDateFormat("yyyy/MM/dd").format(tuanStateful.get$orderDTO()[i].get$dropoff());
+                for (int i=0;i<ngocStateful.get$length();i++) {
+                    if (!ngocStateful.get$orderDTO()[i].is$deleted()) {
+                    String $pickup = new SimpleDateFormat("yyyy/MM/dd").format(ngocStateful.get$orderDTO()[i].get$pickup());
+                    String $dropoff = new SimpleDateFormat("yyyy/MM/dd").format(ngocStateful.get$orderDTO()[i].get$dropoff());
                     int $driver=0;
-                    if(tuanStateful.get$orderDTO()[i].is$driver()) {
+                    if(ngocStateful.get$orderDTO()[i].is$driver()) {
                         $driver=10;
                     }
-                    int $totalCost = (tuanStateful.$get$price(i)*tuanStateful.get$orderDTO()[i].get$quantity()+$driver)*(int)(
-                            (tuanStateful.get$orderDTO()[i].get$dropoff().getTime() - tuanStateful.get$orderDTO()[i].get$pickup().getTime())
+                    int $totalCost = (ngocStateful.$get$price(i)*ngocStateful.get$orderDTO()[i].get$quantity()+$driver)*(int)(
+                            (ngocStateful.get$orderDTO()[i].get$dropoff().getTime() - ngocStateful.get$orderDTO()[i].get$pickup().getTime())
                             / (1000 * 60 * 60 * 24)+1);
                     $orderCost+= $totalCost;
                 %>
 
                 <tr>
-                    <td><%=tuanStateful.get$orderDTO()[i].get$model()%></td>
-                    <td><%=tuanStateful.get$orderDTO()[i].get$quantity()%></td>
+                    <td><%=ngocStateful.get$orderDTO()[i].get$model()%></td>
+                    <td><%=ngocStateful.get$orderDTO()[i].get$quantity()%></td>
                     <td><%
-                        if(tuanStateful.get$orderDTO()[i].is$driver()) {
+                        if(ngocStateful.get$orderDTO()[i].is$driver()) {
                             %>
                             <input type="checkbox" name="$driver" checked />
                             <%
@@ -102,7 +102,7 @@
         <br/>
         <span style="color:red">Order cost: <%=$orderCost%> USD</span>
         <br/><br/>
-        <form action="TuanServlet" method="post">
+        <form action="NgocServlet" method="post">
             <input type="hidden" name="$userID" value="<%= cusINFO.getUserID() %>" />
             <input type="submit" name="action" value="place order" id="btConfirm"/>
         </form>
