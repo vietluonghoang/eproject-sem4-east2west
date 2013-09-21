@@ -1,11 +1,11 @@
 <%-- 
     Document   : adminCarDescription
     Created on : Apr 15, 2013, 1:54:57 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,9 +26,9 @@
 
         <%
             //Context ctx = new InitialContext();
-            TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+            NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
             int $carID = Integer.parseInt(request.getParameter("$carID"));
-            Car car = tuanStatelessRemote.searchReturn1($carID);
+            Car car = ngocStatelessRemote.searchReturn1($carID);
         %>
             <input type="hidden" name="$carID" value="<%=car.getCarID()%>" />
             <table border="0">
@@ -78,7 +78,7 @@
                             <input type="submit" name="action" value="update" id="btUpdate" />
                             </form>
                         </td>
-                        <td><form action="TuanServlet" method="post" onsubmit=
+                        <td><form action="NgocServlet" method="post" onsubmit=
                             "return confirm(
                             'Do you really want to delete this car? This action cannot be undone!');">
                             <input type="hidden" name="$carID" value="<%=car.getCarID() %>" />

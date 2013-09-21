@@ -1,11 +1,11 @@
 <%-- 
     Document   : adminCarSearch
     Created on : Apr 14, 2013, 11:54:35 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -61,7 +61,6 @@
           #tablePagination_paginater {
             float: right;
           }
-          <script>
 
          </style>
          <script>
@@ -134,10 +133,10 @@
             <br/><br/>
         <%
         
-        TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+        NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
         Car[] result;
         if(request.getAttribute("INFO") == null) {
-            result = (Car[])tuanStatelessRemote.search("SELECT c FROM Car c WHERE c.isDeleted = false");
+            result = (Car[])ngocStatelessRemote.search("SELECT c FROM Car c WHERE c.isDeleted = false");
         } else {
             result = (Car[])request.getAttribute("INFO");
         }
@@ -194,7 +193,7 @@
                             <input type="submit" name="action" value="update" id="btUpdate"/>
                         </form>
                             <br/>
-                        <form action="TuanServlet" method="post" onsubmit=
+                        <form action="NgocServlet" method="post" onsubmit=
                             "return confirm(
                             'Do you really want to delete this car? This action cannot be undone!');">
                             <input type="hidden" name="$carID" value="<%=result[i].getCarID() %>" />

@@ -1,11 +1,11 @@
 <%-- 
     Document   : carDescription
     Created on : Apr 15, 2013, 2:18:50 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,9 +32,9 @@
 
         <%
             //Context ctx = new InitialContext();
-            TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+            NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
             int $carID = Integer.parseInt(request.getParameter("$carID"));
-            Car car = tuanStatelessRemote.searchReturn1($carID);
+            Car car = ngocStatelessRemote.searchReturn1($carID);
         %>
             <input type="hidden" name="$carID" value="<%=car.getCarID()%>" />
             <table border="0">
@@ -88,7 +88,7 @@
         <br/><br/>
         <img width="450px" src="images/<%=car.getImage()%>" />
         <br/><br/>
-        <div style=" text-wrap; word-wrap:break-word;" >
+        <div style=" text-wrap: normal; word-wrap:break-word;" >
         <%=car.getDescription()%>
         </div>
 

@@ -1,11 +1,11 @@
 <%-- 
     Document   : adminCarSearch
     Created on : Apr 14, 2013, 11:54:35 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Car"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Car"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -35,7 +35,7 @@
 <!------------------------- CONTENT BEGIN ------------------------------>
 
 
-        <form action="TuanServlet" method="post">
+        <form action="NgocServlet" method="post">
             <table border="0">
                 <tbody>
                     <tr>
@@ -77,10 +77,10 @@
             <br/><br/>
         <%
         //Context ctx = new InitialContext();
-        TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+        NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
         Car[] result;
         if(request.getAttribute("INFO") == null) {
-            result = (Car[])tuanStatelessRemote.search("SELECT c FROM Car c WHERE c.isDeleted = false");
+            result = (Car[])ngocStatelessRemote.search("SELECT c FROM Car c WHERE c.isDeleted = false");
         } else {
             result = (Car[])request.getAttribute("INFO");
         }

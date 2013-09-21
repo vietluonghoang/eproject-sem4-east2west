@@ -1,14 +1,14 @@
 <%-- 
     Document   : carOrderDetail
     Created on : Apr 23, 2013, 8:52:43 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
 <%@page import="e2w.enitites.Customer"%>
-<%@page import="tuan.entity.OrderDetailDTO"%>
+<%@page import="ngoc.entity.OrderDetailDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="tuan.entity.CarOrderDetail"%>
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.entity.CarOrderDetail"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,10 +33,10 @@
     <body>
         <%
         Context ctx = new InitialContext();
-        TuanStatefulRemote tuanStateful = (TuanStatefulRemote) ctx.lookup("TuanStatefulRemote");
+        NgocStatefulRemote ngocStateful = (NgocStatefulRemote) ctx.lookup("NgocStatefulRemote");
         int $carOrderID = Integer.parseInt(request.getParameter("$carOrderID"));
-        OrderDetailDTO dTO = tuanStateful.getCarOrderDetail($carOrderID);
-        Customer customer = tuanStateful.getBillingAddress(Integer.parseInt(request.getParameter("$userID")));
+        OrderDetailDTO dTO = ngocStateful.getCarOrderDetail($carOrderID);
+        Customer customer = ngocStateful.getBillingAddress(Integer.parseInt(request.getParameter("$userID")));
         %>
                 <img src="images/e2w-logo.jpg" />
                 <table border="0" width="640px">

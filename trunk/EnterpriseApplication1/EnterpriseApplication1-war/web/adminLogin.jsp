@@ -1,10 +1,10 @@
 <%-- 
     Document   : adminLogin
     Created on : Apr 25, 2013, 4:13:12 PM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,10 +14,10 @@
 
             <%
             Context ctx = new InitialContext();
-            TuanStatefulRemote tuanStatefulRemote = (TuanStatefulRemote)ctx.lookup("TuanStatefulRemote");
-            tuanStatefulRemote = (TuanStatefulRemote)session.getAttribute("admin");
-            if (tuanStatefulRemote!=null) {
-                if (tuanStatefulRemote.get$username()!=null) {
+            NgocStatefulRemote ngocStatefulRemote = (NgocStatefulRemote)ctx.lookup("NgocStatefulRemote");
+            ngocStatefulRemote = (NgocStatefulRemote)session.getAttribute("admin");
+            if (ngocStatefulRemote!=null) {
+                if (ngocStatefulRemote.get$username()!=null) {
                     %>
                         <meta http-equiv="refresh" content="1;url=adminHome.jsp">
                         <script type="text/javascript">
@@ -63,7 +63,7 @@ $(document).pngFix( );
 
 	<!--  start login-inner -->
 	<div id="login-inner">
-            <form action="TuanServlet" method="post">
+            <form action="NgocServlet" method="post">
 		<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<th>Username</th>

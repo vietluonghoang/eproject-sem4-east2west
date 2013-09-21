@@ -1,13 +1,13 @@
 
-<%@page import="tuan.bean.TuanStatefulRemote"%>
+<%@page import="ngoc.bean.NgocStatefulRemote"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>
 
             <%
             Context ctx = new InitialContext();
-            TuanStatefulRemote tuanStatefulRemote = (TuanStatefulRemote)ctx.lookup("TuanStatefulRemote");
-            tuanStatefulRemote = (TuanStatefulRemote)session.getAttribute("admin");
-            if (tuanStatefulRemote == null) {
+            NgocStatefulRemote ngocStatefulRemote = (NgocStatefulRemote)ctx.lookup("NgocStatefulRemote");
+            ngocStatefulRemote = (NgocStatefulRemote)session.getAttribute("admin");
+            if (ngocStatefulRemote == null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
@@ -21,7 +21,7 @@
                 }
                 </script>
                 <%
-            } else if (tuanStatefulRemote.get$username()==null) {
+            } else if (ngocStatefulRemote.get$username()==null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
@@ -77,7 +77,7 @@
 			<div class="showhide-account"></div>
 			<div class="nav-divider">&nbsp;</div>
 			<a href="" id="logout">
-                            <form action="TuanServlet" method="POST">
+                            <form action="NgocServlet" method="POST">
                                 <input type="hidden" name="action" value="logout" />
                                 <input type="image" src="images/shared/nav/nav_logout.gif" width="64" height="14" />
                             </form>
@@ -262,7 +262,7 @@
 	<!--  start page-heading -->
 	<div id="page-heading">
 
-		<h1>Hello  <strong><%= tuanStatefulRemote.get$username() %></strong></h1>
+		<h1>Hello  <strong><%= ngocStatefulRemote.get$username() %></strong></h1>
 
 	</div>
 	<!-- end page-heading -->

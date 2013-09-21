@@ -1,7 +1,7 @@
 
 <%@page import="java.text.ParseException"%>
 <%@page import="java.util.Random"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="java.util.Date"%>
 <%@page import="javax.naming.InitialContext"%>
@@ -96,7 +96,7 @@
 
 
                         Context ctx = new InitialContext();
-                        TuanStatelessRemote remote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+                        NgocStatelessRemote remote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
                         if ($which.equals("insert")) {
                             remote.insert($model, $type, $seat, $airConditioner, $description, $image, $stock, $price);
                             request.getRequestDispatcher("adminCarSearch.jsp").forward(request, response);

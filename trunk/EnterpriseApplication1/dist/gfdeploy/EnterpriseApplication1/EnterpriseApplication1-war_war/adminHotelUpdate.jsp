@@ -1,11 +1,11 @@
 <%-- 
     Document   : insertCar
     Created on : Apr 14, 2013, 10:49:51 AM
-    Author     : Anh Tuan
+    Author     : Tuan Ngoc
 --%>
 
-<%@page import="tuan.entity.Hotel"%>
-<%@page import="tuan.bean.TuanStatelessRemote"%>
+<%@page import="ngoc.entity.Hotel"%>
+<%@page import="ngoc.bean.NgocStatelessRemote"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,9 +29,9 @@
 
         <%
             //Context ctx = new InitialContext();
-            TuanStatelessRemote tuanStatelessRemote = (TuanStatelessRemote) ctx.lookup("TuanStatelessRemote");
+            NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
             int $hotelID = Integer.parseInt(request.getParameter("$hotelID"));
-            Hotel hotel = tuanStatelessRemote.searchReturn1Hotel($hotelID);
+            Hotel hotel = ngocStatelessRemote.searchReturn1Hotel($hotelID);
         %>
 
         <form action="adminHotelUploadImage.jsp" method="post" enctype="multipart/form-data">
