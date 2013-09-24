@@ -19,6 +19,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="templateAdminHead.jsp" %>
+        
 		<style type="text/css">
 		.auto-style1 {
 			text-align: center;
@@ -29,19 +31,26 @@
 			text-align: center;
 		}
 		</style>
+        
     </head>
     <body>
         <%
-        Context ctx = new InitialContext();
-        NgocStatefulRemote ngocStateful = (NgocStatefulRemote) ctx.lookup("NgocStatefulRemote");
+            $category = "car";
+            $page = "search";
+        %>
+        <%@include file="templateAdminHeader.jsp" %>
+        <%
+        Context ctx1 = new InitialContext();
+        NgocStatefulRemote ngocStateful = (NgocStatefulRemote) ctx1.lookup("NgocStatefulRemote");
         CarReportDTO[] top10 = (CarReportDTO[])request.getAttribute("INFO");
         Car car;
         if (top10==null) {
             %>nothing to show for<%
         } else {
         %>
+        <center>
         <div align="center">
-        <img src="images/e2w-logo.jpg" align="center"/>
+        <!--<img src="images/e2w-logo.jpg" align="center"/>-->
         </div>
         <table border="0" width="640px" align="center">
 			<tr align="center">
@@ -101,5 +110,9 @@
             </tbody>
          </table>
     <%}%>
+    
+    </center>
+    <%@include file="templateAdminFooter.jsp" %>
+    
     </body>
 </html>

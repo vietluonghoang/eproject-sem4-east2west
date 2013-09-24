@@ -230,8 +230,8 @@
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub show">
 			<ul class="sub">
-                                <li><a href="carReportSearch.jsp" target="__blank">Car report</a></li>
-                                <li><a href="Ereport.jsp" target="__blank">Tour report</a></li>
+                                <li><a href="carReportSearch.jsp" >Car report</a></li>
+                                <li><a href="Ereport.jsp" >Tour report</a></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
