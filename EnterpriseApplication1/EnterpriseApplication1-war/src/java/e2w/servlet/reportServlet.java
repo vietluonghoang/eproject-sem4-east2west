@@ -68,7 +68,7 @@ public class reportServlet extends HttpServlet {
                  //checking the type of the report
             if (choose.equals("r01")) {
                     Context ctx = new InitialContext();
-                    DataSource data = (DataSource) ctx.lookup("java:E2WConnection");
+                    DataSource data = (DataSource) ctx.lookup("JNDI_e2w");
                     Connection connect = data.getConnection();
                     //use prepare statement
                     PreparedStatement pst = connect.prepareStatement("select top 10 userID,count(userID) as total from OrderTour where orderDate>=? and orderDate<=? group by userID order by total desc ");
