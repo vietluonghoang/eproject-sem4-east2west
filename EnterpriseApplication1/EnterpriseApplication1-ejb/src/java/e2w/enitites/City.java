@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,7 +30,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "City.findByCityDescription", query = "SELECT c FROM City c WHERE c.cityDescription = :cityDescription")})
 public class City implements Serializable {
     private static final long serialVersionUID = 1L;
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     @Id
     @Basic(optional = false)
     @Column(name = "cityID", nullable = false)

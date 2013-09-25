@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -43,7 +44,7 @@ public class CarOrder implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "carOrderID", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer carOrderID;
     @Basic(optional = false)
     @Column(name = "createDate", nullable = false)

@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +34,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "CancelOrderTour.findByRefund", query = "SELECT c FROM CancelOrderTour c WHERE c.refund = :refund")})
 public class CancelOrderTour implements Serializable {
     private static final long serialVersionUID = 1L;
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     @Basic(optional = false)
     @Column(name = "cancelOrderTourID", nullable = false)
