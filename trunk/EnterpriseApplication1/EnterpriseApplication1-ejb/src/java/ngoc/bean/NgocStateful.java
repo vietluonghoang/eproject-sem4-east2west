@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ngoc.bean;
 
 import e2w.enitites.Customer;
@@ -26,8 +25,9 @@ import ngoc.entity.OrderDetailDTO;
  *
  * @author Tuan Ngoc
  */
-@Stateful(name = "NgocStatefulRemote",mappedName = "NgocStatefulRemote")
+@Stateful(name = "NgocStatefulRemote", mappedName = "NgocStatefulRemote")
 public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
+
     @PersistenceContext(unitName = "east2west-ejbPU")
 //    @PersistenceContext(unitName = "20130414eprojectSem4-ejbPU")
     private EntityManager em;
@@ -38,8 +38,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
     public void persist(Object object) {
         em.persist(object);
     }
-
-    private int $length=0;//number of all cart item
+    private int $length = 0;//number of all cart item
     private $OrderDTO[] $orderDTO = new $OrderDTO[99];//maximum 99 cart item
     private String $username;//admin username login
 
@@ -116,7 +115,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
         try {
             Query query = em.createNamedQuery("CarOrder.findByCreateDate");//find by createDate
             query.setParameter("createDate", $date);//set input to createDAte
-            CarOrder carOrder = (CarOrder)(query.getSingleResult());//get single order
+            CarOrder carOrder = (CarOrder) (query.getSingleResult());//get single order
             return carOrder;//return carOrder object
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,7 +130,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
         try {
             Query query = em.createNamedQuery("Customer.findByUserID");//find by userID
             query.setParameter("userID", $userID);//set input to userID
-            Customer customer = (Customer)query.getSingleResult();//get single customer
+            Customer customer = (Customer) query.getSingleResult();//get single customer
             return customer;//return customer object
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,8 +144,8 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
     public CarOrder[] searchCarOrder(int $userID, Date $from, Date $to) {
         try {
             Query query;//new query
-            if ($from==null || $to ==null) {//if date range is null
-                 query = em.createNamedQuery("CarOrder.findAll");//get all carOrder
+            if ($from == null || $to == null) {//if date range is null
+                query = em.createNamedQuery("CarOrder.findAll");//get all carOrder
             } else {
                 query = em.createQuery("SELECT c FROM CarOrder c WHERE "
                         + "c.createDate BETWEEN :from AND :to");//get carOrder within range
@@ -156,16 +155,16 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
             List list = query.getResultList();//get result
             CarOrder[] carOrder = new CarOrder[list.size()];//new array
             list.toArray(carOrder);//result to array
-            int $length2=0;//total CarOrder of a userID
-            for (int i=0;i<carOrder.length;i++) {//get all carOrder
+            int $length2 = 0;//total CarOrder of a userID
+            for (int i = 0; i < carOrder.length; i++) {//get all carOrder
                 //if carOrder belong to a specific customer
                 if (carOrder[i].getCustomer().getUserID().equals($userID)) {
                     $length2++;//calculate array length
                 }
             }
             CarOrder[] carOrder2 = new CarOrder[$length2];//new array
-            $length2=0;//reset length
-            for (int i=0;i<carOrder.length;i++) {//get all carORder
+            $length2 = 0;//reset length
+            for (int i = 0; i < carOrder.length; i++) {//get all carORder
                 //if carOrder belong to a specific customer
                 if (carOrder[i].getCustomer().getUserID().equals($userID)) {
                     carOrder2[$length2] = carOrder[i];//get all CarOrder of unique userID
@@ -198,7 +197,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
         try {
             Query query = em.createNamedQuery("CarOrder.findByCarOrderID");//find by carOrderID
             query.setParameter("carOrderID", $carOrderID);//set input carOrderID
-            CarOrder carOrder = (CarOrder)query.getSingleResult();//get single carOrder
+            CarOrder carOrder = (CarOrder) query.getSingleResult();//get single carOrder
             Collection collection = carOrder.getCarOrderDetailCollection();//get carOrderDetail collection
             CarOrderDetail[] carOrderDetails = new CarOrderDetail[collection.size()];//new array
             collection.toArray(carOrderDetails);//cast carOrderDetail collection to array
@@ -217,7 +216,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
         try {
             Query query = em.createNamedQuery("Car.findByCarID");//find By CarID
             query.setParameter("carID", $carID);//set input to carID
-            Car car = (Car)query.getSingleResult();//get single result
+            Car car = (Car) query.getSingleResult();//get single result
             return car;//car object
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,6 +228,18 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
     //search CarOrderDetail between a range, then get all unique car in result,
     //then sort those unique car by totalOrderQuantity then return array of CarReportDTO
     //output: each unique car's carID and quantity in DTO, sorted
+    public CarReportDTO[] getOrderTotal(Date $from, Date $to) {
+        Query query = em.createQuery("select c.carID, sum(c.quantity) as total "
+                + "from CarOrderDetail c where c.orderDate between :from and :to and c.status !='canceled' "
+                + "group by c.carID order by total desc");
+        query.setParameter("from", $from);//set input to from date
+        query.setParameter("to", $to);//set input to to date
+        List list = query.getResultList();//get result
+        CarReportDTO[] carReportDTO = new CarReportDTO[list.size()];
+        list.toArray(carReportDTO);
+        return carReportDTO;
+    }
+
     public CarReportDTO[] report(Date $from, Date $to) {
         try {
             //get carOrderDetail within date range
@@ -244,21 +255,20 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
             CarReportDTO[] carReportDTO = new CarReportDTO[99];
             int $length1 = 0;//dto length
 
-            for (int j=0; j< carOrderDetails.length;j++) {//get all carOrderDetail
+            for (int j = 0; j < carOrderDetails.length; j++) {//get all carOrderDetail
                 if (!carOrderDetails[j].getStatus().equals("canceled")) {//if order not canceled
-                boolean $flag =true;//not existed
-                for (int k=0; k < $length1; k++) {//insert into carReportDTO
-                    if (carOrderDetails[j].getCar().getCarID()==carReportDTO[k].getCarID()) {//if car existed
-                        carReportDTO[k].setQuantityTotal(carOrderDetails[j].getQuantity()
-                                +carReportDTO[k].getQuantityTotal());//add quantity to total
-                        $flag=false;//existed
+                    boolean $flag = true;//not existed
+                    for (int k = 0; k < $length1; k++) {//insert into carReportDTO
+                        if (carOrderDetails[j].getCar().getCarID() == carReportDTO[k].getCarID()) {//if car existed
+                            carReportDTO[k].setQuantityTotal(carOrderDetails[j].getQuantity()
+                                    + carReportDTO[k].getQuantityTotal());//add quantity to total
+                            $flag = false;//existed
+                        }
                     }
-                }
-                if($flag) {//if car is not existed
-                    carReportDTO[$length1] = new CarReportDTO(carOrderDetails[j].getCar().getCarID()
-                            , carOrderDetails[j].getQuantity());//create new dto
-                    $length1++;//dto length
-                }
+                    if ($flag) {//if car is not existed
+                        carReportDTO[$length1] = new CarReportDTO(carOrderDetails[j].getCar().getCarID(), carOrderDetails[j].getQuantity());//create new dto
+                        $length1++;//dto length
+                    }
                 }
             }
             if ($length1 > 0) {//if result have anything
@@ -271,8 +281,8 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
                     swapped = false;
                     j++;
                     for (int i = 0; i < $length1 - j; i++) {
-                        if (carReportDTO[i].getQuantityTotal() >
-                                carReportDTO[i + 1].getQuantityTotal()) {
+                        if (carReportDTO[i].getQuantityTotal()
+                                > carReportDTO[i + 1].getQuantityTotal()) {
                             tmp = carReportDTO[i];
                             carReportDTO[i] = carReportDTO[i + 1];
                             carReportDTO[i + 1] = tmp;
@@ -330,26 +340,26 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
             //$pickup date will advance by 1 day until it pass dropoff date
             while ($pickup.equals($dropoff) || $pickup.before($dropoff)) {//if pickup is still before dropoff
                 int $totalQuantity = $quantity;//total quantity booked of 1 car
-                for (int j=0; j< carOrderDetails.length;j++) {//get of carOrderDetail
-                    if (carOrderDetails[j].getCar().getCarID()==$carID) {//if its the car we looking for
+                for (int j = 0; j < carOrderDetails.length; j++) {//get of carOrderDetail
+                    if (carOrderDetails[j].getCar().getCarID() == $carID) {//if its the car we looking for
                         if (carOrderDetails[j].getStatus().equals("waiting")) {//if order is still waiting
                             if ($pickup.equals(carOrderDetails[j].getPickup()) ||//if within date range
                                     $pickup.equals(carOrderDetails[j].getDropoff())) {
                                 $totalQuantity += carOrderDetails[j].getQuantity();//add into totalQuantity
-                                if ($totalQuantity>carOrderDetails[j].getCar().getQuantityStock()) {
+                                if ($totalQuantity > carOrderDetails[j].getCar().getQuantityStock()) {
                                     return true;//if total > stock order will not go through
                                 }
-                            } else if ($pickup.after(carOrderDetails[j].getPickup()) &&
-                                    $pickup.before(carOrderDetails[j].getDropoff())) {//if within date range
+                            } else if ($pickup.after(carOrderDetails[j].getPickup())
+                                    && $pickup.before(carOrderDetails[j].getDropoff())) {//if within date range
                                 $totalQuantity += carOrderDetails[j].getQuantity();//add into totalQuantity
-                                if ($totalQuantity>carOrderDetails[j].getCar().getQuantityStock()) {
+                                if ($totalQuantity > carOrderDetails[j].getCar().getQuantityStock()) {
                                     return true;//if total > stock, order will not be proceed
                                 }
                             }
                         }
                     }
                 }
-                $pickup = new Date($pickup.getTime()+(1000 * 60 * 60 * 24)+1);//advance pickup date by 1 day
+                $pickup = new Date($pickup.getTime() + (1000 * 60 * 60 * 24) + 1);//advance pickup date by 1 day
             }
             return false;//have enough car in stock
         } catch (Exception e) {
@@ -365,7 +375,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
         try {
             Query query = em.createNamedQuery("Car.findByCarID");//find By CarID
             query.setParameter("carID", $carID);//set input to carID
-            Car car = (Car)(query.getSingleResult());//get single result
+            Car car = (Car) (query.getSingleResult());//get single result
             return car;//car object
         } catch (Exception e) {
             e.printStackTrace();
@@ -396,7 +406,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
                     new SimpleDateFormat("yyyy/MM/dd").format(new Date()));//get today
             Query query = em.createNamedQuery("CarOrder.findByCarOrderID");//find By CarOrderID
             query.setParameter("carOrderID", $carOrderID);//set input to carORderID
-            CarOrder carOrder = (CarOrder)(query.getSingleResult());//get carOrder by id
+            CarOrder carOrder = (CarOrder) (query.getSingleResult());//get carOrder by id
             carOrder.setStatus("canceled");//set status to canceled
             carOrder.setEndDate(new Date());//set cancelDate
             //format createDate into yyyy/mm/dd
@@ -404,20 +414,20 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
                     new SimpleDateFormat("yyyy/MM/dd").format(carOrder.getCreateDate()));
             //calculate refund: today 70%, yesterday 80%, beyond 90%
             if ($today.equals($createDate)) {//if today
-                carOrder.setRefund(carOrder.getOrderCost()*70/100);//70%
-            } else if (($today.getTime()-$createDate.getTime())/ (1000 * 60 * 60 * 24)+1==1) {//if yesterday
-                carOrder.setRefund(carOrder.getOrderCost()*80/100);//80%
+                carOrder.setRefund(carOrder.getOrderCost() * 70 / 100);//70%
+            } else if (($today.getTime() - $createDate.getTime()) / (1000 * 60 * 60 * 24) + 1 == 1) {//if yesterday
+                carOrder.setRefund(carOrder.getOrderCost() * 80 / 100);//80%
             } else {//if beyond
-                carOrder.setRefund(carOrder.getOrderCost()*90/100);//90%
+                carOrder.setRefund(carOrder.getOrderCost() * 90 / 100);//90%
             }
             persist(carOrder);//update carOrder to canceled
 
             OrderDetailDTO dTO = getCarOrderDetail($carOrderID);//get carOrderDetail of a carOrderID
             CarOrderDetail carOrderDetail;//new object
-            for (int i=0;i<dTO.getCarOrderDetails().length;i++) {//get all carORderDtail
+            for (int i = 0; i < dTO.getCarOrderDetails().length; i++) {//get all carORderDtail
                 query = em.createNamedQuery("CarOrderDetail.findByCarOrderDetailID");//find By CarOrderDetailID
                 query.setParameter("carOrderDetailID", dTO.getCarOrderDetails()[i].getCarOrderDetailID());
-                carOrderDetail = (CarOrderDetail)(query.getSingleResult());//get by carOrderDetailID
+                carOrderDetail = (CarOrderDetail) (query.getSingleResult());//get by carOrderDetailID
                 carOrderDetail.setStatus("canceled");//set carOrderDetail to canceled too
                 persist(carOrderDetail);//update carOrderDetail
             }
@@ -439,18 +449,18 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
             Collection collection;//new collection
             CarOrderDetail[] carOrderDetails;//new array
             //get all carOrderDetail of carOrder to compare pickup date with today
-            for (int i=0; i<carOrders.length; i++) {//get all carORder
-                boolean $flag=false;//if carOrder have finished or not
+            for (int i = 0; i < carOrders.length; i++) {//get all carORder
+                boolean $flag = false;//if carOrder have finished or not
                 collection = carOrders[i].getCarOrderDetailCollection();//get CarOrderDetail Collection
                 carOrderDetails = new CarOrderDetail[collection.size()];//initialize array
                 collection.toArray(carOrderDetails);//collection to array
                 CarOrderDetail carOrderDetail;//new object
-                for (int j=0; j<carOrderDetails.length; j++) {//get all carOrderDetail
+                for (int j = 0; j < carOrderDetails.length; j++) {//get all carOrderDetail
                     if (carOrderDetails[j].getPickup().before($today)) {//if pickup date has pass
-                        $flag=true;//carOrder is finished
+                        $flag = true;//carOrder is finished
                         query = em.createNamedQuery("CarOrderDetail.findByCarOrderDetailID");//find By CarOrderDetailID
                         query.setParameter("carOrderDetailID", carOrderDetails[j].getCarOrderDetailID());
-                        carOrderDetail = (CarOrderDetail)(query.getSingleResult());//get by carOrderDetailID
+                        carOrderDetail = (CarOrderDetail) (query.getSingleResult());//get by carOrderDetailID
                         carOrderDetail.setStatus("finished");//set carOrderDetail to finished too
                         persist(carOrderDetail);//update carOrderDetail
                     }
@@ -462,7 +472,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
                 }
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -479,7 +489,7 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
             List list = query.getResultList();//get result
             Admin[] admins = new Admin[list.size()];//new array
             list.toArray(admins);//result to array
-            if (admins.length>0) {//if login detail is true
+            if (admins.length > 0) {//if login detail is true
                 this.$username = $username;//set user logon
                 return true;//logon
             } else {//if not, login failed
@@ -490,5 +500,4 @@ public class NgocStateful implements NgocStatefulRemote, NgocStatefulLocal {
             return false;//rejected
         }
     }
-
 }

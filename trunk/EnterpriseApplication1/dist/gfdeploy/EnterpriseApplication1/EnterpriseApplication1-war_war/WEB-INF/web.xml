@@ -20,6 +20,10 @@
         <servlet-name>flightServlet</servlet-name>
         <servlet-class>e2w.servlet.flightServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CarReportServlet</servlet-name>
+        <servlet-class>servlets.CarReportServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerServlet</servlet-name>
         <url-pattern>/CustomerServlet</url-pattern>
@@ -56,7 +60,10 @@
         <servlet-name>ActionServlet</servlet-name>
         <url-pattern>/ActionServlet</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>CarReportServlet</servlet-name>
+        <url-pattern>/CarReportServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

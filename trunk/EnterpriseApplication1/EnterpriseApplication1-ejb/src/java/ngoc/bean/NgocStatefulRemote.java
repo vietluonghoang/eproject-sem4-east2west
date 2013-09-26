@@ -38,5 +38,5 @@ public interface NgocStatefulRemote {
     public void cancelOrder(int $carOrderDetailID);
     public void autoFinishOrder();
     public boolean adminLogin(String $username, String $password);
-    
+    public CarReportDTO[] getOrderTotal(Date $from, Date $to);
 }

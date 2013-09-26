@@ -17,7 +17,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%@include file="templateAdminHead.jsp" %>
          <meta http-equiv="Content-Language" content="en-us" />
 
 	    <meta http-equiv="imagetoolbar" content="no" />
@@ -27,28 +26,21 @@
 	    <meta name="keywords" content="Keywords" />
 
 	    <meta name="author" content="Enlighten Designs" />
-<%--
+
 	    <style type="text/css" media="all">@import "css/css-style-admin.css";</style>
---%>
+
             <link rel="stylesheet" href="jquery/jquery-ui.css"/>
             <script src="jquery/jquery-1.9.1.js"></script>
              <script src="jquery/jquery-ui.js"></script>
              <script>
-                $(function() {
-                $("#datepicker3").datepicker({dateFormat: 'yy/mm/dd'});
-                $("#datepicker4").datepicker({dateFormat: 'yy/mm/dd'});
-                });
+$(function() {
+$("#datepicker3").datepicker({dateFormat: 'yy/mm/dd'});
+$("#datepicker4").datepicker({dateFormat: 'yy/mm/dd'});
+});
 
-             </script>
+</script>
     </head>
     <body>
-       
-        <%
-            $category = "car";
-            $page = "search";
-        %>
-        <%@include file="templateAdminHeader.jsp" %>
-        
         <div id="page-container">
              <div id="page-container">
 
@@ -60,25 +52,24 @@
 
 
 <!------------------------- CONTENT BEGIN ------------------------------>
-<center>
-    <div id="content">
-        <h2>Report</h2>
-        <p><strong>Report</strong> will show the result of the type of report from date to date</p>
-    </div>
+<div id="content">
+		<h2>Report</h2>
+	    <p><strong>Report</strong> will show the result of the type of report from date to date</p>
+	 </div>
 
         <%
-            Context ctx1 = new InitialContext();
+            Context ctx = new InitialContext();
             
-            NgocStatefulRemote statefulRemote = (NgocStatefulRemote)ctx1.lookup("NgocStatefulRemote");
-            statefulRemote = (NgocStatefulRemote)session.getAttribute("admin");
-            if (statefulRemote == null) {
+            NgocStatefulRemote ngocStatefulRemote = (NgocStatefulRemote)ctx.lookup("NgocStatefulRemote");
+            ngocStatefulRemote = (NgocStatefulRemote)session.getAttribute("admin");
+            if (ngocStatefulRemote == null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
                     window.location.href = "adminLogin.jsp"
                 </script>
                 <%
-            } else if (statefulRemote.get$username()==null) {
+            } else if (ngocStatefulRemote.get$username()==null) {
                 %>
                 <meta http-equiv="refresh" content="1;url=adminLogin.jsp">
                 <script type="text/javascript">
@@ -89,7 +80,7 @@
 
         String $today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         %>
-        <form action="NgocServlet" method="post">
+        <form action="ReportServlet" method="post" target="_blank">
             <strong>From</strong> <input name="$from" type="text" value="<%=$today%>" id="datepicker3" /><br/>
             <strong>To</strong>  <input name="$to" type="text" value="<%=$today%>" id="datepicker4" /><br/>
             <input type="submit" name="action" value="report" />
@@ -99,12 +90,8 @@
 <!------------------------- CONTENT BEGIN ------------------------------>
 
 <%}%>
-</center>
-    </div>
+            </div>
         </div>
         </div>
-
-<%@include file="templateAdminFooter.jsp" %>
-
     </body>
 </html>

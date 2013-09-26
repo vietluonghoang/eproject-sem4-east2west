@@ -80,7 +80,7 @@ $("#datepicker4").datepicker({dateFormat: 'yy/mm/dd'});
 
         String $today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         %>
-        <form action="NgocServlet" method="post" target="_blank">
+        <form action="ReportServlet" method="post" target="_blank">
             <strong>From</strong> <input name="$from" type="text" value="<%=$today%>" id="datepicker3" /><br/>
             <strong>To</strong>  <input name="$to" type="text" value="<%=$today%>" id="datepicker4" /><br/>
             <input type="submit" name="action" value="report" />
