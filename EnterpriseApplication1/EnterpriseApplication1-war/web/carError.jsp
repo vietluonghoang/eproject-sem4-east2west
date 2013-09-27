@@ -6,22 +6,24 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="templateHeadTag.jsp" %>
     </head>
     <body>
 
+        <div class="secondWrap">
+            <br/><br/><br/><br/>
+            <div align="center">
+                <span style="color:red"><%= request.getAttribute("ERROR")%></span><br/><br/>
+                <FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);
+                        return true;"></FORM>
+            </div>
 
-                <br/><br/><br/><br/>
-                <div align="center">
-                <span style="color:red"><%= request.getAttribute("ERROR") %></span><br/><br/>
-                <FORM><INPUT Type="button" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
-                </div>
-
-
+        </div>
     </body>
 </html>
