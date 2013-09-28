@@ -9,6 +9,16 @@
     font-family: helvetica,arial,sans-serif;
 }
 
+.secondWrap{
+    width :780px;
+    margin:auto;
+    margin-top: 50px;
+    box-shadow: 0px 0px 20px 1px #000000;
+    margin-bottom: 50px;
+    padding-top: 1px;
+    background-color: #ffffff;
+    font-family: helvetica,arial,sans-serif;
+}
 .hidden{
     display:none;
 }
@@ -126,7 +136,6 @@ body.contact dt#contact a
     width:760px;
     margin: 10px;
 }
-
 #footer{
     clear:both;
     height:66px;
@@ -137,7 +146,6 @@ body.contact dt#contact a
     width:280px;
     line-height:18px;
     border-bottom: 1px solid #efefef;
-
 }
 #content{
     margin-right:280px;
@@ -145,54 +153,54 @@ body.contact dt#contact a
     padding: 50px;
     font-family: helvetica,arial,sans-serif;
 }
-
+#content #cart{
+    font-size: smaller;
+}
 #content h2{
     padding: 0;
     padding-bottom: 0px;
     font-weight: bold;
-    text-align: center;
     margin: 5px;
 }
-
 #content p{
-    font-size: smaller;
+    font-size: small;
     word-wrap: break-word;
 }
-
 body{
     font-family: Arial, Helvetica, Verdana, Sans-serif;
     font-size: 12px;
     color: #333333;
     background: #ffffff;
 }
-
-
 #sidebar-a .padding{
-    padding-bottom: 25px;
+    padding-bottom: 5px;
 }
 #sidebar-a table{
     margin-bottom: 25px;
 }
 #sidebar-a table h3{
     padding-left: 15px;
-    text-align: center;
     font-weight: bold;
     margin: 5px;
 }
 #sidebar-a .padding td{
-    padding-bottom: 25px;
+    padding-bottom: 5px;
 }
-#sidebar-a .padding td input{
+#sidebar-a .padding td input[type='text'],#sidebar-a .padding td input[type='password']{
     border-radius: 5px;
     padding: 5px;
+    border: 0px;
+    box-shadow: 0px 0px 1px 1px gray;
 }
-
+#sidebar-a .padding td a{
+    margin-left: 20px;
+}
 #footer{
     clear:both;
     height:66px;
     font-family:Tahoma, Arial, Helvetica, Sans-serif;
     font-size:12px;
-    color:#c9c9c9;
+    color:#000;
     border-top: 1px solid #efefef;
     padding: 13px 25px;
     line-height: 18px;
@@ -200,7 +208,7 @@ body{
 }
 
 #footer a{
-    color:#c9c9c9;
+    color:#000;
     text-decoration:none;
 }
 
@@ -215,40 +223,19 @@ body{
 }
 
 #tour-items{
-    margin-right:280px;
+    margin-right:300px;
     line-height:18px;
-    border-top: 1px solid #efefef;
-    border-bottom: 1px solid #efefef;
 }
 #tour-items h2{
-    padding-left: 15px;
-    text-align: center;
     font-weight: bold;
-    margin: 5px;
+    margin: 15px;
 }
 
 #car-items h2{
-    text-align:left;
-    padding-left:15px;	
+    font-weight: bold;
+    margin: 15px;
 }
 
-#tour-items a{
-    text-decoration:none;
-    color:#00F;
-}
-
-#tour-items a:hover{
-    color:#db6d16;
-}
-
-#car-items a{
-    text-decoration:none;
-    color:#00F;
-}
-
-#car-items a:hover{
-    color:#db6d16;
-}
 
 #sidebar-a table{
     margin-right:30px;
@@ -256,6 +243,14 @@ body{
 #testTable .tableBackground table td{
     padding-left: 3px;
     padding-right: 3px;
+}
+#testTable table td{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+#testTable table{
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 #testTable .tableBackground{
     padding: 20px;
@@ -266,6 +261,24 @@ body{
 }
 
 #testTable { 
+    width : 400px;
+    margin-left: 20px;
+    margin-right: auto; 
+}
+#testTable2 .carTableBackground table td{
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 5px;
+}
+#testTable2 .carTableBackground{
+    padding: 20px;
+    background-color: #cccccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 420px;
+}
+
+#testTable2 { 
     width : 400px;
     margin-left: 20px;
     margin-right: auto; 

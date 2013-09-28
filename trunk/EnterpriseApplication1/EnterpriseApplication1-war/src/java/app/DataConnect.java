@@ -109,7 +109,7 @@ public class DataConnect {
 
         try {
             prst = conn.prepareStatement(qry);
-            prst.executeQuery();
+            rs=prst.executeQuery();
 
         } catch (SQLException ex) {
             Logger.getLogger(DataConnect.class

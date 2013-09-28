@@ -231,7 +231,7 @@
 		<div class="select_sub show">
 			<ul class="sub">
                                 <li><a href="carReportSearch.jsp" >Car report</a></li>
-                                <li><a href="Ereport.jsp" >Tour report</a></li>
+                                <li><a href="AdminTourReport.jsp" >Tour report</a></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
