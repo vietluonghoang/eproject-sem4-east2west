@@ -43,23 +43,45 @@ public class CarReportServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            Date from = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("$from"));//parse input value
-            Date to = new SimpleDateFormat("yyyy/MM/dd").parse(request.getParameter("$to"));
+            String fromStr = request.getParameter("$from");
+            String toStr = request.getParameter("$to");
+            String type = request.getParameter("type");
+            Date from = new SimpleDateFormat("yyyy/MM/dd").parse(fromStr);//parse input value
+            Date to = new SimpleDateFormat("yyyy/MM/dd").parse(toStr);
             if (from.after(to)) {
                 request.setAttribute("ERROR", "from date cannot be after to date");
                 request.getRequestDispatcher("carError.jsp").forward(request, response);
                 return;
             }
-            ResultSet rs = getOrderTotalByPeriod(from, to);
-            ArrayList<CarReportDTO> result=new ArrayList<CarReportDTO>();
-            while (rs.next()) {
-                CarReportDTO cr=new CarReportDTO(rs.getInt("id"),rs.getInt("total"));
-                result.add(cr);
+            if ("most".equals(type)) {
+                ResultSet rs = getOrderTotalByPeriod(fromStr, toStr);
+                ArrayList<CarReportDTO> result = new ArrayList<CarReportDTO>();
+                while (rs.next()) {
+                    CarReportDTO cr = new CarReportDTO(rs.getInt("id"), rs.getInt("total"));
+                    result.add(cr);
+                }
+                request.setAttribute("type", type);
+                request.setAttribute("INFO", result);//set value
+                request.setAttribute("$from", from);//set value
+                request.setAttribute("$to", to);//set value
+                request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
             }
-            request.setAttribute("INFO", result);//set value
-            request.setAttribute("$from", from);//set value
-            request.setAttribute("$to", to);//set value
-            request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
+            if("available".equals(type)){
+                ResultSet result = getAvaiableOrderByPeriod(fromStr, toStr);                
+                request.setAttribute("type", type);
+                request.setAttribute("INFO", result);//set value
+                request.setAttribute("$from", from);//set value
+                request.setAttribute("$to", to);//set value
+                request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
+            }
+            if("all".equals(type)){
+                ResultSet result = getAllOrderByPeriod(fromStr, toStr);                
+                request.setAttribute("type", type);
+                request.setAttribute("INFO", result);//set value
+                request.setAttribute("$from", from);//set value
+                request.setAttribute("$to", to);//set value
+                request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
+            }
         } catch (ParseException ex) {
             Logger.getLogger(CarReportServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -69,10 +91,29 @@ public class CarReportServlet extends HttpServlet {
         }
     }
 
-    public ResultSet getOrderTotalByPeriod(Date from, Date to) {
+    public ResultSet getOrderTotalByPeriod(String from, String to) {
         String qry = "select c.carID as id, sum(c.quantity) as total from CarOrderDetail c "
-                + "where c.orderDate between '" + from.toString() + "' and '" + to.toString() + "' "
+                + "where c.dropoff between '" + from.toString() + "' and '" + to.toString() + "' "
                 + "and c.status !='canceled' group by c.carID order by total desc";
+        System.out.println(qry);
+        DataConnect dc = new DataConnect();
+        ResultSet rs = dc.executeCustomQuery(qry);
+        return rs;
+    }
+    
+    public ResultSet getAvaiableOrderByPeriod(String from, String to) {
+        String qry = "select c.model, o.quantity, o.driver, o.pickup, o.dropoff, o.orderDate, o.status "
+                + "from CarOrderDetail o join Car c on o.carID=c.carID where status ='waiting' "
+                + "and o.pickup between '"+from+"' and '"+to+"' order by o.pickup asc";
+        System.out.println(qry);
+        DataConnect dc = new DataConnect();
+        ResultSet rs = dc.executeCustomQuery(qry);
+        return rs;
+    }
+    
+    public ResultSet getAllOrderByPeriod(String from, String to) {
+        String qry = "select c.model,o.* from CarOrderDetail o join Car c on o.carID=c.carID where status!='canceled' "
+                + "and o.pickup between '"+from+"' and '"+to+"' order by orderDate desc";
         System.out.println(qry);
         DataConnect dc = new DataConnect();
         ResultSet rs = dc.executeCustomQuery(qry);
