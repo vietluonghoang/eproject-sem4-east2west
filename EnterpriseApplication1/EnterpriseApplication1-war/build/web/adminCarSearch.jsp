@@ -154,7 +154,7 @@
                     <td align="center"><strong>Type</strong></td>
                     <td align="center"><strong>Capacity</strong></td>
                     <td align="center"><strong>Air-conditioner</strong></td>
-                    <td align="center"><strong>Stock Quantitiy</strong></td>
+                    <td align="center"><strong>Stock Quantity</strong></td>
                     <td align="center"><strong>Price</strong></td>
                 </tr>
 

@@ -759,8 +759,10 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             tour.setImageTour(imageTour);
             String a = new SimpleDateFormat("yyyy-MM-dd").parse(startDate).toString();
             String b =new SimpleDateFormat("yyyy-MM-dd").parse(endDate).toString();
-            tour.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(a));
-            tour.setEndDate(new SimpleDateFormat("yyyy-MM-dd").format(b));
+//            tour.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(a));
+//            tour.setEndDate(new SimpleDateFormat("yyyy-MM-dd").format(b));
+            tour.setStartDate((startDate));
+            tour.setEndDate((endDate));
             tour.setStartLocation(startLocation);
             tour.setEndLocation(endLocation);
             tour.setQuantityMin(minQuantity);

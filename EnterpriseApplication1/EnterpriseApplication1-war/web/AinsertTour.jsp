@@ -22,6 +22,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>East2West</title>
+        <%@include file="templateAdminHead.jsp" %>
         <meta http-equiv="Content-Language" content="en-us" />
 
 	    <meta http-equiv="imagetoolbar" content="no" />
@@ -32,7 +33,7 @@
 
 	    <meta name="author" content="Enlighten Designs" />
 
-	    <style type="text/css" media="all">@import "css/css-style-admin.css";</style>
+	    <!--<style type="text/css" media="all">@import "css/css-style-admin.css";</style>-->
             <link rel="stylesheet" href="jquery/jquery-ui.css"/>
             <script src="jquery/jquery-1.9.1.js"></script>
             <script src="jquery/jquery.validate.js"></script>
@@ -151,8 +152,14 @@ $(document).ready(function(){
 </script>
     </head>
     <body>
-        <div id="page-container">
-        <div id="main-nav">
+        <%
+            $category = "tour";
+            $page = "insert";
+        %>
+
+        <%@include file="templateAdminHeader.jsp" %>
+        <div id="page-container" align="center">
+<!--        <div id="main-nav">
 		<dl>
 			<dt id="home"><a href="Ehome.jsp">Home</a></dt>
 	        <dt id="about"><a href="Eabout.jsp">About</a></dt>
@@ -161,7 +168,7 @@ $(document).ready(function(){
 	        <dt id="informationDesk"><a href="EinformationDesk.jsp">Information Desk</a></dt>
             <dt id="contact"><a href="Econtact.jsp">Contact</a></dt>
         </dl>
-	 </div>
+	 </div>-->
 	 <div id="header">
 	 </div>
 
@@ -224,7 +231,7 @@ $(document).ready(function(){
           </table>
           </form>
       </div>
-     <div id="footer">
+<!--     <div id="footer">
 
 	 <div id="altnav">
 	        <a href="Ehome.jsp">Home</a>
@@ -237,9 +244,9 @@ $(document).ready(function(){
 	    </div>
 		Copyright © East2West<br/>
 	    Powered by <a href="http://www.facebook.com/quanganhbuingoc">Jake's Facebook</a>
-	 </div>
+	 </div>-->
 
-	 
+	 <%@include file="templateAdminFooter.jsp" %>
 	 </div>
     </body>
 </html>

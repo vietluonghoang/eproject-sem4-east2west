@@ -77,19 +77,15 @@
                         CustomerBeanRemote remote = (CustomerBeanRemote) ctx.lookup("CustomerBeanJNDI");
 
                         System.out.println("tourName :"+tourName);
-                        System.out.println("packImage"+packImage);
+                        System.out.println("packImage: "+packImage);
                         System.out.println("startDate:"+startDate);
-                        System.out.println("endDate"+endDate);
-                        System.out.println("startLocation"+startLocation);
-                        System.out.println("endLocation"+endLocation);
-                        System.out.println("minQuantity"+minQuantity);
-                        System.out.println("maxQuantity"+maxQuantity);
-                        System.out.println("description"+description);
-                        System.out.println("price"+price
-
-
-
-                                );
+                        System.out.println("endDate: "+endDate);
+                        System.out.println("startLocation: "+startLocation);
+                        System.out.println("endLocation: "+endLocation);
+                        System.out.println("minQuantity: "+minQuantity);
+                        System.out.println("maxQuantity: "+maxQuantity);
+                        System.out.println("description: "+description);
+                        System.out.println("price: "+price);
                         if (remote.insertTour(tourName, packImage, startDate, endDate, startLocation, endLocation, Integer.parseInt(minQuantity),Integer.parseInt(maxQuantity), Integer.parseInt(price), description)){
                             
 
