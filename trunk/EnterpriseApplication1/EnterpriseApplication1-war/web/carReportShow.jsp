@@ -34,26 +34,29 @@
         </style>
     </head>
     <body>
+        <%
+            $category = "report";
+            $page = "car";
+        %>
         <%@include file="templateAdminHeader.jsp" %>
         <%
-            Context ctx1 = new InitialContext();
-            NgocStatefulRemote ngocStateful = (NgocStatefulRemote) ctx1.lookup("NgocStatefulRemote");
-//        CarReportDTO[] top10 = (CarReportDTO[])request.getAttribute("INFO");
-            Object result = null;
-            Car car;
+
+            String rs = "";
             String type = (String) request.getAttribute("type");
-            if ("most".equals(type)) {
-                result = (ArrayList<CarReportDTO>) request.getAttribute("INFO");
+            int pagesnum = (Integer) request.getAttribute("pagesnum");
+            int pages = (Integer) request.getAttribute("page");
+            String from = (String) request.getParameter("$from");
+            String to = (String) request.getParameter("$to");
+            if ("most".equals(type) || "available".equals(type) || "all".equals(type)) {
+                rs = (String) request.getAttribute("INFO");
             }
-            if ("available".equals(type)||"all".equals(type)) {
-                result = (ResultSet) request.getAttribute("INFO");
-            }
-            if (result == null) {
-        %><center>No data available.</center><%            } else {
+            if (rs == null || "".equals(rs)) {
+        %><a href="carReportSearch.jsp">Back to Car Report</a><br/><br/><center>No data available.</center><%            } else {
             %>
         <div align="center">
             <!--<img src="images/e2w-logo.jpg" align="center"/>-->
         </div>
+        <a href="carReportSearch.jsp">Back to Car Report</a>
         <center>
             <table border="0" width="640px" align="center">
                 <tr align="center">
@@ -74,13 +77,32 @@
                         </strong></td>
                 </tr>
                 <tr align="center">
-                    <td class="auto-style2" align="center">from <%=request.getParameter("$from")%> to <%=request.getParameter("$to")%></td>
+                    <td class="auto-style2" align="center">from <%=from%> to <%=to%></td>
                 </tr>
                 <tr align="center">
                     <td class="auto-style2" align="center">Report created at <%= new Date()%></td>
                 </tr>
             </table>
             <br/><br/>
+            <div id="pagingsection" align="center">
+                
+                <table><tr>
+                        <%
+                            for (int i = 0; i < pagesnum; i++) {
+                        %>
+                        <td>
+                            <form action="CarReportServlet" method="POST" id="page<%=i%>">                
+                                <input type="hidden" name="type" value="<%=type%>" />
+                                <input type="hidden" name="$from" value="<%=from%>"/>
+                                <input type="hidden" name="$to" value="<%=to%>"/>
+                                <input type="hidden" name="page" value="<%=i + 1%>"/>
+                                <a href="javascript:document.getElementById('page<%=i%>').submit();"><strong>&nbsp;<%if (pages == i + 1) {%><u><%}%><%=i + 1%><%if (pages == i + 1) {%></u><%}%>&nbsp;</strong></a>
+                            </form>
+                        </td>
+                        <%}%>
+                    </tr>
+                </table>
+            </div>
             <table border="1" width=640px align="center">
                 <thead align="center">
                     <%
@@ -88,11 +110,11 @@
                     %>
                     <tr align="center">
                         <th align="center">No.</th>
-                        <th align="center">CarID</th>
+                        <th align="center">Car ID</th>
                         <th align="center">Model</th>
                         <th align="center">Type</th>
                         <th align="center">Capacity</th>
-                        <th align="center">Aircondition</th>
+                        <th align="center">Air Conditioner</th>
                         <th align="center">Price</th>
                         <th align="center">Total Booked</th>
                     </tr>
@@ -133,78 +155,41 @@
                     <%
                         if ("most".equals(type)) {
                     %>
-                    <%
-                        int no = 0;
-                        for (int i = 0; i < ((ArrayList<CarReportDTO>) result).size(); i++) {
-                            car = ngocStateful.findByCarID(((ArrayList<CarReportDTO>) result).get(i).getCarID());
-                            no++;
-                    %>
-                    <tr align="center">
-                        <td align="center"><%= no%></td>
-                        <td align="center"><%= car.getCarID()%></td>
-                        <td align="center"><%= car.getModel()%></td>
-                        <td align="center"><%= car.getType()%></td>
-                        <td align="center"><%= car.getSeat()%></td>
-                        <td align="center">
-                            <%
-                                if (car.getAirConditioner()) {
-                            %>yes<%                            } else {
-                            %>no<%                                }
-                            %>
-                        </td>
-                        <td align="center"><%= car.getPrice()%> USD</td>
-                        <td align="center"><%= ((ArrayList<CarReportDTO>) result).get(i).getQuantityTotal()%></td>
-                    </tr>
+                    <%=rs%>
+
                     <%}%>
-                    <%
-                        }
-                    %>
+
                     <%
                         if ("available".equals(type)) {
-                            int no = 0;
-                            while (((ResultSet) result).next()) {
-                                no++;
                     %>
-                    <tr align="center">
-                        <td align="center"><%= no%></td>
-                        <td align="center"><%= ((ResultSet) result).getString("model")%></td>
-                        <td align="center"><%= ((ResultSet) result).getInt("quantity")%></td>
-                        <td align="center"><%
-                            if (((ResultSet) result).getBoolean("driver")) {
-                            %>yes<%                            } else {
-                            %>no<%                                }
-                            %> </td>
-                        <td align="center"><%= ((ResultSet) result).getDate("pickup")%></td>
-                        <td align="center"><%=((ResultSet) result).getDate("dropoff")%></td>
-                        <td align="center"><%= ((ResultSet) result).getDate("orderDate")%></td>
-                    </tr>
-                    <%}
-                        }%>
+                    <%=rs%>
+                    <%}%>
                     <%
                         if ("all".equals(type)) {
-                            int no = 0;
-                            while (((ResultSet) result).next()) {
-                                no++;
                     %>
-                    <tr align="center">
-                        <td align="center"><%= no%></td>
-                        <td align="center"><%= ((ResultSet) result).getDate("orderDate")%></td>
-                        <td align="center"><%= ((ResultSet) result).getString("model")%></td>
-                        <td align="center"><%= ((ResultSet) result).getInt("quantity")%></td>
-                        <td align="center"><%
-                            if (((ResultSet) result).getBoolean("driver")) {
-                            %>yes<%                            } else {
-                            %>no<%                                }
-                            %> </td>
-                        <td align="center"><%= ((ResultSet) result).getDate("pickup")%></td>
-                        <td align="center"><%=((ResultSet) result).getDate("dropoff")%></td>
-                        <td align="center"><%=((ResultSet) result).getInt("totalCost")%></td>
-                        <td align="center"><%=((ResultSet) result).getString("status")%></td>
-                    </tr>
-                    <%}
-                        }%>
+                    <%=rs%>
+                    <%}%>
                 </tbody>
             </table>
+            <div id="pagingsection" align="center">
+
+                <table><tr>
+                        <%
+                            for (int i = 0; i < pagesnum; i++) {
+                        %>
+                        <td>
+                            <form action="CarReportServlet" method="POST" id="page<%=i%>">                
+                                <input type="hidden" name="type" value="<%=type%>" />
+                                <input type="hidden" name="$from" value="<%=from%>"/>
+                                <input type="hidden" name="$to" value="<%=to%>"/>
+                                <input type="hidden" name="page" value="<%=i + 1%>"/>
+                                <a href="javascript:document.getElementById('page<%=i%>').submit();"><strong>&nbsp;<%if (pages == i + 1) {%><u><%}%><%=i + 1%><%if (pages == i + 1) {%></u><%}%>&nbsp;</strong></a>
+                            </form>
+                        </td>
+                        <%}%>
+                    </tr>
+                </table>
+            </div>
         </center>
         <%}%>
         <%@include file="templateAdminFooter.jsp" %>

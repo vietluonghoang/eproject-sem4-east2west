@@ -43,8 +43,8 @@
     </head>
     <body>
         <%
-            $category = "hotel";
-            $page = "search";
+            $category = "report";
+            $page = "car";
         %>
 
         <%@include file="templateAdminHeader.jsp" %>

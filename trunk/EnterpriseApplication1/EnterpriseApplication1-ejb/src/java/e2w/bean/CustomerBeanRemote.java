@@ -79,7 +79,7 @@ public interface CustomerBeanRemote {
 
     Flight loadFlightByFlightID(int flightID);
 
-boolean insertTour(String tourName, String imageTour, String startDate, String endDate, String startLocation, String endLocation, int minQuantity, int maxQuantity, int price, String description);
+    boolean insertTour(String tourName, String imageTour, String startDate, String endDate, String startLocation, String endLocation, int minQuantity, int maxQuantity, int price, String description);
 
     
 }

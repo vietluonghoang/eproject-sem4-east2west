@@ -46,6 +46,16 @@ public class CarReportServlet extends HttpServlet {
             String fromStr = request.getParameter("$from");
             String toStr = request.getParameter("$to");
             String type = request.getParameter("type");
+            int page = 1;
+            try {
+                page = Integer.parseInt(request.getParameter("page"));
+                if (page <= 0) {
+                    page = 1;
+                }
+            } catch (Exception ex) {
+                page = 1;
+            }
+            int numOfEntitiesPerPages = 50;
             Date from = new SimpleDateFormat("yyyy/MM/dd").parse(fromStr);//parse input value
             Date to = new SimpleDateFormat("yyyy/MM/dd").parse(toStr);
             if (from.after(to)) {
@@ -55,31 +65,110 @@ public class CarReportServlet extends HttpServlet {
             }
             if ("most".equals(type)) {
                 ResultSet rs = getOrderTotalByPeriod(fromStr, toStr);
-                ArrayList<CarReportDTO> result = new ArrayList<CarReportDTO>();
+                int order = 0;
+                int numOfElements = 0;
+                String result = "";
                 while (rs.next()) {
-                    CarReportDTO cr = new CarReportDTO(rs.getInt("id"), rs.getInt("total"));
-                    result.add(cr);
+                    numOfElements++;
+                    if ((numOfElements > (page - 1) * numOfEntitiesPerPages) && (numOfElements < page * numOfEntitiesPerPages)) {
+                        order++;
+                        String air="";
+                        if (rs.getBoolean("airConditioner")) {
+                            air="Yes";
+                        }else {
+                            air="No";
+                        }
+                        result = result + "<tr align=\"center\"><td align=\"center\">"+order+"</td>" 
+                                +"<td align=\"center\">"+rs.getInt("carID")+"</td><td align=\"center\">"+rs.getString("model")
+                                +"<td align=\"center\">"+rs.getString("type")+"</td><td align=\"center\">"+rs.getInt("seat")
+                                +"</td><td align=\"center\">"+air+"<td align=\"center\">"+rs.getInt("price")+" USD</td>" 
+                                +"<td align=\"center\">"+rs.getInt("total")+"</td></tr>";
+                    }
+                }
+                int numOfPages = 0;
+                if (numOfElements % numOfEntitiesPerPages == 0) {
+                    numOfPages = numOfElements / numOfEntitiesPerPages;
+                } else {
+                    numOfPages = (numOfElements / numOfEntitiesPerPages) + 1;
                 }
                 request.setAttribute("type", type);
                 request.setAttribute("INFO", result);//set value
                 request.setAttribute("$from", from);//set value
                 request.setAttribute("$to", to);//set value
+                request.setAttribute("pagesnum", numOfPages);
+                request.setAttribute("page", page);
                 request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
             }
             if("available".equals(type)){
-                ResultSet result = getAvaiableOrderByPeriod(fromStr, toStr);                
+                ResultSet rs = getAvaiableOrderByPeriod(fromStr, toStr);    
+                int order = 0;
+                int numOfElements = 0;
+                String result = "";
+                while (rs.next()) {
+                    numOfElements++;
+                    if ((numOfElements > (page - 1) * numOfEntitiesPerPages) && (numOfElements < page * numOfEntitiesPerPages)) {
+                        order++;
+                        String driver="";
+                        if (rs.getBoolean("driver")) {
+                            driver="Yes";
+                        }else {
+                            driver="No";
+                        }
+                        result = result + "<tr align=\"center\"><td align=\"center\">"+order+"</td><td align=\"center\">"+rs.getString("model")
+                                +"</td><td align=\"center\">"+rs.getInt("quantity")+"</td><td align=\"center\">"+driver
+                                +"</td><td align=\"center\">"+rs.getDate("pickup")+"</td><td align=\"center\">"+rs.getDate("dropoff")
+                                +"</td><td align=\"center\">"+rs.getDate("orderDate")+"</td></tr>";
+                    }
+                }
+                int numOfPages = 0;
+                if (numOfElements % numOfEntitiesPerPages == 0) {
+                    numOfPages = numOfElements / numOfEntitiesPerPages;
+                } else {
+                    numOfPages = (numOfElements / numOfEntitiesPerPages) + 1;
+                }
                 request.setAttribute("type", type);
                 request.setAttribute("INFO", result);//set value
                 request.setAttribute("$from", from);//set value
                 request.setAttribute("$to", to);//set value
+                request.setAttribute("pagesnum", numOfPages);
+                request.setAttribute("page", page);
                 request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
             }
             if("all".equals(type)){
-                ResultSet result = getAllOrderByPeriod(fromStr, toStr);                
+                ResultSet rs = getAllOrderByPeriod(fromStr, toStr);  
+                int order = 0;
+                int numOfElements = 0;
+                String result = "";
+                while (rs.next()) {
+                    numOfElements++;
+                    if ((numOfElements > (page - 1) * numOfEntitiesPerPages)
+                            && (numOfElements < page * numOfEntitiesPerPages)) {
+                        order++;
+                        String driver="";
+                        if (rs.getBoolean("driver")) {
+                            driver="Yes";
+                        }else {
+                            driver="No";
+                        }
+                        result = result + "<tr align=\"center\"><td align=\"center\">"+order+"</td><td align=\"center\">"+rs.getDate("orderDate")
+                                +"</td><td align=\"center\">"+rs.getString("model")+"</td><td align=\"center\">"+rs.getInt("quantity")
+                                +"</td><td align=\"center\">"+driver+" </td> <td align=\"center\">"+rs.getDate("pickup")
+                                +"</td><td align=\"center\">"+rs.getDate("dropoff")+"</td><td align=\"center\">"+rs.getInt("totalCost")
+                                +"</td><td align=\"center\">"+rs.getString("status")+"</td></tr>";
+                    }
+                }
+                int numOfPages = 0;
+                if (numOfElements % numOfEntitiesPerPages == 0) {
+                    numOfPages = numOfElements / numOfEntitiesPerPages;
+                } else {
+                    numOfPages = (numOfElements / numOfEntitiesPerPages) + 1;
+                }
                 request.setAttribute("type", type);
                 request.setAttribute("INFO", result);//set value
                 request.setAttribute("$from", from);//set value
                 request.setAttribute("$to", to);//set value
+                request.setAttribute("pagesnum", numOfPages);
+                request.setAttribute("page", page);
                 request.getRequestDispatcher("carReportShow.jsp").forward(request, response);
             }
         } catch (ParseException ex) {
@@ -92,9 +181,10 @@ public class CarReportServlet extends HttpServlet {
     }
 
     public ResultSet getOrderTotalByPeriod(String from, String to) {
-        String qry = "select c.carID as id, sum(c.quantity) as total from CarOrderDetail c "
-                + "where c.dropoff between '" + from.toString() + "' and '" + to.toString() + "' "
-                + "and c.status !='canceled' group by c.carID order by total desc";
+        String qry = "select c.carID, c.model, c.type, c.seat, c.airConditioner, c.price, g.total "
+                + "from Car c join (select c.carID as id, sum(c.quantity) as total from CarOrderDetail c" 
+                +" where c.dropoff between '"+from+"' and '"+to+"' and c.status !='canceled' group by c.carID) g"
+                + " on c.carID=g.id order by g.total desc";
         System.out.println(qry);
         DataConnect dc = new DataConnect();
         ResultSet rs = dc.executeCustomQuery(qry);
