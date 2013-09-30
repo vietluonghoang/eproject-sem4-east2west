@@ -118,4 +118,20 @@ public class DataConnect {
 
         return rs;
     }
+    public boolean executeCustomUpdateQuery(String qry){
+        Connection conn = getConnection();
+        PreparedStatement prst = null;
+        int rs=0;
+
+        try {
+            prst = conn.prepareStatement(qry);
+            rs=prst.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DataConnect.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs>0;
+    }
 }

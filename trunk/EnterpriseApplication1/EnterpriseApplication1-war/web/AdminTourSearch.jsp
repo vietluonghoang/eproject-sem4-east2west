@@ -29,7 +29,13 @@
                 qryData = (String) request.getAttribute("qryData");
                 type = (String) request.getAttribute("type");
                 pagesnum = (Integer) request.getAttribute("pagesnum");
+                if(pagesnum<0){
+                    pagesnum=0;
+                }
                 pages = (Integer) request.getAttribute("page");
+                if(pages<0){
+                    pages=0;
+                }
             } catch (Exception ex) {
                 rs = "";
                 qryData = "";
@@ -103,7 +109,7 @@
         <%            } else {
         %>
     <div id="pagingsection" align="center">
-        <table><tr>
+        <table border="1" cellspacing="5"><tr>
                 <%
                     for (int i = 0; i < pagesnum; i++) {
                 %>
