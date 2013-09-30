@@ -225,7 +225,7 @@ $(document).ready(function(){
                       <td><textarea name="txtDescription" rows="8" cols="35" ></textarea></td>
                   </tr>
                   <tr>
-                      <td colspan="2" align="center"><input type="submit" value="Insert" /></td>
+                      <td colspan="2" align="center"><input type="submit" name="type" value="Insert" /></td>
                   </tr>
               </tbody>
           </table>

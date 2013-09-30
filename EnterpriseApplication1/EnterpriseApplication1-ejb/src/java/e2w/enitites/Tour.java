@@ -69,7 +69,7 @@ public class Tour implements Serializable {
     @Column(name = "quantityCurrent")
     private Integer quantityCurrent;
     @Lob
-    @Column(name = "descripton", length = 2147483647)
+    @Column(name = "description", length = 2147483647)
     private String descripton;
     @OneToMany(mappedBy = "tour")
     private Collection<ScheduleTour> scheduleTourCollection;

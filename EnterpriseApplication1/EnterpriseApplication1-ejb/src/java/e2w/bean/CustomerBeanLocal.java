@@ -81,11 +81,6 @@ public interface CustomerBeanLocal {
 
     boolean insertTour(String tourName, String imageTour, String startDate, String endDate, String startLocation, String endLocation, int minQuantity, int maxQuantity, int price, String description);
 
- 
-
-
-
-
-
+    public boolean updateTour(String tourID, String tourName, String imageTour, String startDate, String endDate, String startLocation, String endLocation, String minQuantity, String maxQuantity, String quantityCurrent, String price, String description, String status);
     
 }

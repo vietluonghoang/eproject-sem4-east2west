@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package e2w.bean;
 
 import e2w.dto.OrderTourCancelDTO;
@@ -16,12 +15,15 @@ import e2w.enitites.OrderTour;
 import e2w.enitites.OrderTourDetail;
 import e2w.enitites.ScheduleTour;
 import e2w.enitites.Tour;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,8 +33,9 @@ import javax.persistence.Query;
  *
  * @author JAKE
  */
-@Stateless(name = "CustomerBeanJNDI",mappedName = "CustomerBeanJNDI")
+@Stateless(name = "CustomerBeanJNDI", mappedName = "CustomerBeanJNDI")
 public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
+
     @PersistenceContext(unitName = "east2west-ejbPU")
     private EntityManager em;
 
@@ -51,7 +54,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             cus.setNationality(nationality);
             cus.setAddress(address);
             cus.setPhone(phone);
-           //set the entities from Customer entity :username,password,fullname,gende,email,nationality,address,address,phone
+            //set the entities from Customer entity :username,password,fullname,gende,email,nationality,address,address,phone
 
             em.persist(cus);
             //get all the customer input information and set to the entity class and persist it to database
@@ -67,13 +70,13 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public boolean checkLogin(String username, String password) {
         try {//checking the username and password in database for login
             //return boolean :true or false
-            String ejbQL="SELECT c FROM Customer c WHERE c.username = :username and c.password = :password";
+            String ejbQL = "SELECT c FROM Customer c WHERE c.username = :username and c.password = :password";
             Query query = em.createQuery(ejbQL);
             //set query parameter
             query.setParameter("username", username);
             query.setParameter("password", password);
             List list = query.getResultList();
-            if(list.size()>0){
+            if (list.size() > 0) {
                 //if the size of the list is more than 0,return true
                 return true;
             }
@@ -90,11 +93,11 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //the function return an array of Tour consist many Tour object
             //Tour object information is:tourID,tourName,imageTour,startDate,endDate,startLocation,endLocation,quantityMin,quantityMax,quantityCurrent,price,status,description
 
-            String ejbQL="SELECT t FROM Tour t WHERE t.startLocation Like :startLocation";
+            String ejbQL = "SELECT t FROM Tour t WHERE t.startLocation Like :startLocation";
 
             Query query = em.createQuery(ejbQL);
             //set query parameter
-            query.setParameter("startLocation", "%"+location+"%");
+            query.setParameter("startLocation", "%" + location + "%");
             //create a list
             List list = query.getResultList();
             //create a array of tour with the size of the list
@@ -111,14 +114,14 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public Tour loadTourDetail(int tourID) {
         try {//load the tour detail by the tourID
             //return an Tour object
-             //Tour object information is:tourID,tourName,imageTour,startDate,endDate,startLocation,endLocation,quantityMin,quantityMax,quantityCurrent,price,status,description
+            //Tour object information is:tourID,tourName,imageTour,startDate,endDate,startLocation,endLocation,quantityMin,quantityMax,quantityCurrent,price,status,description
             String ejbQL = "SELECT t FROM Tour t WHERE t.tourID = :tourID";
             //create query
             Query query = em.createQuery(ejbQL);
 
             //set the query parameter
             query.setParameter("tourID", tourID);
-            Tour result = (Tour)query.getSingleResult();
+            Tour result = (Tour) query.getSingleResult();
             //return an Tour object
             return result;
         } catch (Exception e) {
@@ -133,15 +136,15 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //return an array of ScheduleTourDTO
             //ScheduleTourDTO consist : an object Tour,an array of ScheduleTour
 
-        String ejbQL="SELECT t FROM Tour t WHERE t.tourID = :tourID";
-        Query query = em.createQuery(ejbQL);
-        //set query parameter
-        query.setParameter("tourID", tourID);
-        //create  a list
-        List listTour = query.getResultList();
-        //create  an array list
-        ArrayList list = new ArrayList();
-        //run a loop with the size of the list
+            String ejbQL = "SELECT t FROM Tour t WHERE t.tourID = :tourID";
+            Query query = em.createQuery(ejbQL);
+            //set query parameter
+            query.setParameter("tourID", tourID);
+            //create  a list
+            List listTour = query.getResultList();
+            //create  an array list
+            ArrayList list = new ArrayList();
+            //run a loop with the size of the list
             for (int i = 0; i < listTour.size(); i++) {
                 //create a Tour object to get the current Tour from the list
                 Tour tour = (Tour) listTour.get(i);
@@ -156,12 +159,12 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
                 //add the dto in to list
                 list.add(dto);
             }
-        //create and array of ScheduleTourDTO with the size of the list
-        ScheduleTourDTO[] result = new ScheduleTourDTO[list.size()];
-        //cast the list in to the array
-        list.toArray(result);
-        //return the array of ScheduleTourDTO
-        return result;
+            //create and array of ScheduleTourDTO with the size of the list
+            ScheduleTourDTO[] result = new ScheduleTourDTO[list.size()];
+            //cast the list in to the array
+            list.toArray(result);
+            //return the array of ScheduleTourDTO
+            return result;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,13 +176,13 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public Customer loadCustomerInfo(int userID) {
         try {//load the Customer Information by looking the userID in Customer table in database
             //return an Customer object
-            String ejbQL="SELECT c FROM Customer c WHERE c.userID = :userID";
+            String ejbQL = "SELECT c FROM Customer c WHERE c.userID = :userID";
             //create the query
             Query query = em.createQuery(ejbQL);
             //set the query parameter
             query.setParameter("userID", userID);
             //create a Customer object consist:username,password,fullname,gende,email,nationality,address,address,phone
-            Customer result = (Customer)query.getSingleResult();
+            Customer result = (Customer) query.getSingleResult();
             //return the Customer object
             return result;
         } catch (Exception e) {
@@ -192,14 +195,14 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public Customer searchCustomerByUsername(String username) {
         try {//load the Customer Information by looking the username in Customer table in database
             //return a Customer object
-            String ejbQL="SELECT c FROM Customer c WHERE c.username = :username";
+            String ejbQL = "SELECT c FROM Customer c WHERE c.username = :username";
             //create a querry
             Query query = em.createQuery(ejbQL);
             //set query parameter
             query.setParameter("username", username);
 
-             //create a Customer object consist:username,password,fullname,gende,email,nationality,address,address,phone
-            Customer result = (Customer)query.getSingleResult();
+            //create a Customer object consist:username,password,fullname,gende,email,nationality,address,address,phone
+            Customer result = (Customer) query.getSingleResult();
             //return the Customter object
             return result;
         } catch (Exception e) {
@@ -215,7 +218,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             System.out.println("Start to insert to Order");
             //return a Customer object by using em.find
             Customer customer = em.find(Customer.class, userID);
-            System.out.println("have found customer ID :"+customer.getUserID());
+            System.out.println("have found customer ID :" + customer.getUserID());
             //create a new OrderTour object
             OrderTour order = new OrderTour();
             Date date = new Date();
@@ -243,7 +246,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
 
     public boolean insertCancelOrderTour(String orderTourID, String refund) {
         try {//insert a cancel of Order Tour by looking for the Order Tour by using orderTourID and then insert the refund after cancel the order
-             // return boolean:true or false
+            // return boolean:true or false
             //find the OrderTour object by using orderTourID
             OrderTour order = em.find(OrderTour.class, orderTourID);
             //create a new CancelOrderTour
@@ -260,13 +263,13 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         //if error occurs,the function will return false
     }
 
-    public boolean insertOrderDetails(int orderID,int tourID, int quantity) {
+    public boolean insertOrderDetails(int orderID, int tourID, int quantity) {
         try {//insert the tourID and quantity to Order Detail table by looking for the Order by using the orderID
             // return boolean:true or false
             System.out.println("Start to insert to Order Detail");
             //find the OrderTour object by using orderID
             OrderTour order = em.find(OrderTour.class, orderID);
-            System.out.println("have found orderID :"+order.getOrderTourID());
+            System.out.println("have found orderID :" + order.getOrderTourID());
             //create a new OrderTourDetail Object
             OrderTourDetail detail = new OrderTourDetail();
             //set the tourID,quantity,and the OrderTour object(set the orderID)
@@ -316,10 +319,10 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
 
     public e2w.dto.OrderTourDTO[] loadOrder(int userID) {
         try {//load a array of OrderTour by using the userID for searching the customer who have many order.This function returns an array of OrderTourDTO
-             //the fact that it will return a list of Order of the customer
-             //return an array of OrderTourDTO
+            //the fact that it will return a list of Order of the customer
+            //return an array of OrderTourDTO
             //OrderTourDTO object consist : a Customer object,an array of OrderTour
-            String ejbQL="SELECT c FROM Customer c WHERE c.userID = :userID";
+            String ejbQL = "SELECT c FROM Customer c WHERE c.userID = :userID";
             //create query
             Query query = em.createQuery(ejbQL);
             //set the query parameter
@@ -344,12 +347,12 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
                 list.add(dto);
             }
             //create a new array of OrderTourDTO with the size of the list
-        OrderTourDTO[] result = new OrderTourDTO[list.size()];
-        //cast the list to array
-        list.toArray(result);
-        //return the array of the OrderTourDTO
+            OrderTourDTO[] result = new OrderTourDTO[list.size()];
+            //cast the list to array
+            list.toArray(result);
+            //return the array of the OrderTourDTO
 
-        return result;
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -359,10 +362,10 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
 
     public e2w.dto.OrderTourDetailDTO[] loadOrderTourDetailByOrderTourID(int orderTourID) {
         try {
-        // Using orderTourID to load the OrderTourDetail
-        //Searching the OrderTour where orderTourID equals to the OrderTourID input
-        //return an array of OrderTorDetailDTO
-            String ejbQL="SELECT o FROM OrderTour o WHERE o.orderTourID = :orderTourID";
+            // Using orderTourID to load the OrderTourDetail
+            //Searching the OrderTour where orderTourID equals to the OrderTourID input
+            //return an array of OrderTorDetailDTO
+            String ejbQL = "SELECT o FROM OrderTour o WHERE o.orderTourID = :orderTourID";
             //create the query
             Query query = em.createQuery(ejbQL);
             //set query parameter
@@ -370,11 +373,11 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //create a list with the result which returned by the query
             List listOrder = query.getResultList();
             //create an array list
-            ArrayList list=  new ArrayList();
+            ArrayList list = new ArrayList();
             //run the loop with the size of the list
             for (int i = 0; i < listOrder.size(); i++) {
                 //get the current OrderTour object from the list
-                OrderTour order = (OrderTour)listOrder.get(i);
+                OrderTour order = (OrderTour) listOrder.get(i);
                 // get the OrderTourDetailCollection from the OrderTour object
                 Collection listOrderDetail = order.getOrderTourDetailCollection();
                 //create an array of OrderTourDetail with the collection size
@@ -385,7 +388,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
                 OrderTourDetailDTO dto = new OrderTourDetailDTO(order, orderDetail);
                 list.add(dto);//After add the orderTour object and orderDetail object in to the dto,add the combination object to the list
             }
-            OrderTourDetailDTO[] result= new OrderTourDetailDTO[list.size()];//create a array of dto and cast the list to array and return the result
+            OrderTourDetailDTO[] result = new OrderTourDetailDTO[list.size()];//create a array of dto and cast the list to array and return the result
             list.toArray(result);
             return result;
 
@@ -402,7 +405,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //find the Tour object by using tourID
             Tour tour = em.find(Tour.class, tourID);
             //set the current quantity again after book
-            tour.setQuantityCurrent(tour.getQuantityCurrent()-quantity);
+            tour.setQuantityCurrent(tour.getQuantityCurrent() - quantity);
 
             persist(tour);
             //after persist the Tour object,return true
@@ -420,7 +423,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //find the Tour object by using tourID
             Tour tour = em.find(Tour.class, tourID);
             //set the current quantity again after cancel book
-            tour.setQuantityCurrent(tour.getQuantityCurrent()+quantity);
+            tour.setQuantityCurrent(tour.getQuantityCurrent() + quantity);
 
             persist(tour);
             return true;
@@ -437,7 +440,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //return a Tour object
             //find the Tour object by using tourID
             Tour tour = em.find(Tour.class, tourID);
-           //return the Tour Object
+            //return the Tour Object
             return tour;
         } catch (Exception e) {
             e.printStackTrace();
@@ -466,7 +469,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             Date date = new Date();
             OrderTour order = em.find(OrderTour.class, orderID); //searching for the Order by using orderID
             order.setStatus("Canceled");//update status order
-            
+
             CancelOrderTour cancelOrder = new CancelOrderTour();
             cancelOrder.setCancelTourDate(date);//set the cancel order date
             cancelOrder.setRefund(refund);//set the refund
@@ -488,12 +491,12 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public e2w.enitites.Tour[] searchTourByStartEndDate(String startDate, String endDate) {
         try {//searching tour by using the startDate and endDate,return a list of Tour
             //return an array of Tour Object
-            String ejbQL="SELECT t FROM Tour t WHERE t.startDate >= :startDate and t.endDate <= :endDate";
+            String ejbQL = "SELECT t FROM Tour t WHERE t.startDate >= :startDate and t.endDate <= :endDate";
             //create the query
             Query query = em.createQuery(ejbQL);
             //set query parameter
             query.setParameter("startDate", startDate);
-            query.setParameter("endDate",endDate);
+            query.setParameter("endDate", endDate);
             //create a list with the result list which was return by the query
             List list = query.getResultList();
             //create an array of Tour object with the size of the list
@@ -513,12 +516,12 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public e2w.enitites.Tour[] searchTourByStartEndLocation(String startLocation, String endLocation) {
         try {//searching tour by using the startLocation and endLocation,return a list of Tour
             //return an array of Tour
-            String ejbQL="SELECT t FROM Tour t WHERE t.startLocation = :startLocation and t.endLocation = :endLocation";
+            String ejbQL = "SELECT t FROM Tour t WHERE t.startLocation = :startLocation and t.endLocation = :endLocation";
             //create the query
             Query query = em.createQuery(ejbQL);
             //set query parameter
             query.setParameter("startLocation", startLocation);
-            query.setParameter("endLocation",endLocation);
+            query.setParameter("endLocation", endLocation);
             //create a list with the list of result which was returned by the query
             List list = query.getResultList();
             //create an array of Tour with the size of the list
@@ -540,7 +543,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             String ejbQL = "SELECT o FROM OrderTour o WHERE o.orderTourID = :orderTourID";//searching the orderTour by using orderID
             Query query = em.createQuery(ejbQL);
             query.setParameter("orderTourID", orderID);
-            
+
             List listOrder = query.getResultList();
             ArrayList list = new ArrayList();
             //run the loop to find the OrderTour
@@ -553,9 +556,9 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
                 list.add(dto);//add the dto to the list
             }
 
-        OrderTourCancelDTO[] result = new OrderTourCancelDTO[list.size()];//create an Array of cancel order tour with the size of the list
-        list.toArray(result);//cast the list to array and return the array of OrderTourCancelDTO
-        return result;
+            OrderTourCancelDTO[] result = new OrderTourCancelDTO[list.size()];//create an Array of cancel order tour with the size of the list
+            list.toArray(result);//cast the list to array and return the array of OrderTourCancelDTO
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -581,7 +584,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       //if error occurs,the function will return false
+        //if error occurs,the function will return false
         return false;
     }
 
@@ -605,7 +608,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
 
     public boolean changeEmailCustomer(int userID, String email) {
         try {//change email of user by looking the userID and update the email,the information will be validate in the jsp and servlet
-             //find the Customer object by using userID
+            //find the Customer object by using userID
             Customer cus = em.find(Customer.class, userID);
             //set the new email for the Customer object
             cus.setEmail(email);
@@ -615,7 +618,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             //after that,return true
             return true;
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
         //if error occurs,the function will return false
         return false;
@@ -624,7 +627,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
     public e2w.enitites.Flight[] loadFlightDetailByFlightBranch(String flightBranch) {
         try {//load the flight detail by using flightBranch,return a list of detail
             //return an array of Flight
-            String ejbQL="SELECT f FROM Flight f WHERE f.flightBranch = :flightBranch";
+            String ejbQL = "SELECT f FROM Flight f WHERE f.flightBranch = :flightBranch";
             //create the query
             Query query = em.createQuery(ejbQL);
             //set query parameter
@@ -646,21 +649,21 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
 
     public e2w.enitites.Flight[] loadFlight() {
         try {//this function return an array of fligh with no parameter : flightID,AvailableDate,ExpiredDate,takingOfAirP,landingAirP,takingOfTime,landingTime,price
-            String ejbQL="SELECT f FROM Flight f";
+            String ejbQL = "SELECT f FROM Flight f";
             //create the query
             Query query = em.createQuery(ejbQL);
             //create  a list with the result which was returned by the query
             List list = query.getResultList();
-             //create an array of Flight object with the size of the list
+            //create an array of Flight object with the size of the list
             Flight[] result = new Flight[list.size()];
             list.toArray(result);
-             //cast the list to array of Flight object
+            //cast the list to array of Flight object
             //return the array of Flight object
             return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
-         //if error occurs,the function will return null
+        //if error occurs,the function will return null
         return null;
     }
 
@@ -717,7 +720,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         } catch (Exception e) {
             e.printStackTrace();
         }
-         //if error occurs,the function will return false
+        //if error occurs,the function will return false
         return false;
     }
 
@@ -734,7 +737,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         } catch (Exception e) {
             e.printStackTrace();
         }
-         //if error occurs,the function will return false
+        //if error occurs,the function will return false
         return false;
     }
 
@@ -748,7 +751,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         } catch (Exception e) {
             e.printStackTrace();
         }
-         //if error occurs,the function will return null
+        //if error occurs,the function will return null
         return null;
     }
 
@@ -758,7 +761,7 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
             tour.setTourName(tourName);
             tour.setImageTour(imageTour);
             String a = new SimpleDateFormat("yyyy-MM-dd").parse(startDate).toString();
-            String b =new SimpleDateFormat("yyyy-MM-dd").parse(endDate).toString();
+            String b = new SimpleDateFormat("yyyy-MM-dd").parse(endDate).toString();
 //            tour.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(a));
 //            tour.setEndDate(new SimpleDateFormat("yyyy-MM-dd").format(b));
             tour.setStartDate((startDate));
@@ -781,23 +784,34 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         return false;
     }
 
+    @Override
+    public boolean updateTour(String tourID, String tourName, String imageTour, String startDate, String endDate, String startLocation, String endLocation, String minQuantity, String maxQuantity, String quantityCurrent, String price, String description, String status) {
+        try {
+            Tour tour = em.find(Tour.class, Integer.parseInt(tourID));
+            tour.setTourName(tourName);
+            tour.setImageTour(imageTour);
+            String a = new SimpleDateFormat("yyyy-MM-dd").parse(startDate).toString();
+            String b = new SimpleDateFormat("yyyy-MM-dd").parse(endDate).toString();
+            //            tour.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(a));
+            //            tour.setEndDate(new SimpleDateFormat("yyyy-MM-dd").format(b));
+            tour.setStartDate((startDate));
+            tour.setEndDate((endDate));
+            tour.setStartLocation(startLocation);
+            tour.setEndLocation(endLocation);
+            tour.setQuantityMin(Integer.parseInt(minQuantity));
+            tour.setQuantityMax(Integer.parseInt(maxQuantity));
+            tour.setQuantityCurrent(Integer.parseInt(quantityCurrent));
+            tour.setPrice(Integer.parseInt(price));
+            tour.setDescripton(description);
+            tour.setStatus(status);
 
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
- 
+            persist(tour);
+            return true;
+        } catch (ParseException ex) {
+            Logger.getLogger(CustomerBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
