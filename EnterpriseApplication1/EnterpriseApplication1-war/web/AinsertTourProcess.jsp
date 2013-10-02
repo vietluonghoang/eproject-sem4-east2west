@@ -1,3 +1,5 @@
+
+<%@page import="java.util.Random"%>
 <%@page import="e2w.bean.CustomerBeanRemote"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
@@ -10,6 +12,9 @@
 <%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@page import="org.apache.commons.fileupload.FileItemFactory"%>
 <%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
 <%
     //       String action = request.getParameter("action");
     //      if(action.equals("Update")){
@@ -28,7 +33,7 @@
             e.printStackTrace();
         }
 
-        String image1 = null;
+        String image1 = "";
         Iterator iter = items.iterator();
         Hashtable params = new Hashtable();
 
@@ -39,21 +44,35 @@
                 params.put(item.getFieldName(), item.getString());
             } else {
                 try {
+//                    Random random = new Random();
+//                    String itemName = item.getName();
+//                    String fileName = itemName.substring(itemName.lastIndexOf("\\") + 1);
+//                    if (!fileName.equals("")) {
+//                        System.out.println("path " + fileName);
+//                        image1 = random.nextInt(9999) + "-" + fileName;
+//                        String RealPath = config.getServletContext().getRealPath("/")
+//                                + "images\\" + fileName;
+//                        System.out.println("Rpath " + RealPath);
+//                        //   if(image1 == null){
+//                        File savedFile = new File(RealPath);
+//                        item.write(savedFile);
+//                    }
+//                    System.out.println("image1    " + image1);
+//                    //       }
+
+                    Random random = new Random();
                     String itemName = item.getName();
-                    String fileName = itemName.substring(
+                    String fileName = random.nextInt(9999) + "-" + itemName.substring(
                             itemName.lastIndexOf("\\") + 1);
-                    System.out.println("path " + fileName);
+                    System.out.println("filename " + fileName);
                     String RealPath = config.getServletContext().getRealPath("/")
                             + "images\\" + fileName;
                     System.out.println("Rpath " + RealPath);
-                    //   if(image1 == null){
-                    if (!fileName.equals("")) {
+                    if (itemName != "") {
                         image1 = fileName;
+                        File savedFile = new File(RealPath);
+                        item.write(savedFile);
                     }
-                    System.out.println("image1    " + image1);
-                    //       }
-                    File savedFile = new File(RealPath);
-                    item.write(savedFile);
 
 
                 } catch (Exception e) {
@@ -101,6 +120,7 @@
         }
         if ("Update".equals(type)) {
             if (remote.updateTour(tourID, tourName, packImage, startDate, endDate, startLocation, endLocation, minQuantity, maxQuantity, quantityCurrent, price, description, status)) {
+                request.getRequestDispatcher("AdminTourSearch.jsp").forward(request, response);
             } else {
                 String error = "Insert tour to database failed";
                 request.setAttribute("error", error);
@@ -109,5 +129,5 @@
             }
 
         }
-
+    }
 %>

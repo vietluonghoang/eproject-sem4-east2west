@@ -41,7 +41,6 @@
                         <div id="menuTable">
                             <%
                                 Tour[] result = (Tour[]) remote.searchTourLocation("");
-                                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
                                 DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
                                 for (int i = 0; i < result.length && i < 3; i++) {
                             %>
@@ -82,8 +81,8 @@
                                                     String start = result[i].getStartDate();
                                                     String end = result[i].getEndDate();
 
-                                                    Date s = dateFormat.parse(start);
-                                                    Date e = dateFormat.parse(end);
+                                                    Date s = format.parse(start);
+                                                    Date e = format.parse(end);
 
                                                     long day = (e.getTime() - s.getTime()) / 86400000;
 

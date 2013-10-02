@@ -159,7 +159,7 @@ public class TourActionServlet extends HttpServlet {
                         }
                         result = result + "<tr align=\"center\">"
                                 + "<td align=\"center\">" + order + "</td><td align=\"center\"><img src=\"images/" + rs.getString("imageTour")
-                                + "\" width=\"100px\"/></td><td align=\"center\">" + rs.getString("tourName") + "</td><td align=\"center\"" + rs.getDate("startDate")
+                                + "\" width=\"100px\"/></td><td align=\"center\">" + rs.getString("tourName") + "</td><td align=\"center\">" + rs.getDate("startDate")
                                 + "</td> <td align=\"center\">" + rs.getDate("endDate") + "</td> <td align=\"center\">" + rs.getString("startLocation")
                                 + "</td><td align=\"center\">" + rs.getString("endLocation") + "</td><td align=\"center\">" + rs.getInt("quantityMin")
                                 + "</td><td align=\"center\">" + rs.getInt("quantityMax") + "</td><td align=\"center\">" + rs.getInt("price")
@@ -311,7 +311,7 @@ public class TourActionServlet extends HttpServlet {
                 request.getRequestDispatcher("AdminTourSearch.jsp").forward(request, response);
             }
             if ("disable".equals(action)) {
-                String qry = "update Tour t set t.status='disable' where t.tourID=" + tourID;//initial query
+                String qry = "update Tour set status='disable' where tourID=" + tourID;//initial query
                 boolean rs = dc.executeCustomUpdateQuery(qry);
                 String result="Failed to update!";
                 if(rs){
