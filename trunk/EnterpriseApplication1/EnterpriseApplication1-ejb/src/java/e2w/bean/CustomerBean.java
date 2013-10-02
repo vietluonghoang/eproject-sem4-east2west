@@ -789,7 +789,9 @@ public class CustomerBean implements CustomerBeanRemote, CustomerBeanLocal {
         try {
             Tour tour = em.find(Tour.class, Integer.parseInt(tourID));
             tour.setTourName(tourName);
-            tour.setImageTour(imageTour);
+            if (!"".equals(imageTour)) {
+                tour.setImageTour(imageTour);
+            }
             String a = new SimpleDateFormat("yyyy-MM-dd").parse(startDate).toString();
             String b = new SimpleDateFormat("yyyy-MM-dd").parse(endDate).toString();
             //            tour.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(a));
