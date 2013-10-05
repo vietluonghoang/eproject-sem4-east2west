@@ -7,6 +7,7 @@
     padding-top: 1px;
     background-color: #ffffff;
     font-family: helvetica,arial,sans-serif;
+    min-height: 500px;
 }
 
 .secondWrap{
@@ -147,14 +148,33 @@ body.contact dt#contact a
     line-height:18px;
     border-bottom: 1px solid #efefef;
 }
+#orderTourDetail td{
+    padding: 5px;
+    text-align: left;
+    border: solid 1px #333;
+}
+#orderTourDetail th{
+    padding: 5px;
+    text-align: left;
+    border: solid 1px #333;
+}
+#orderTourDetail table{
+    margin-bottom: 20px;
+}
+
+#orderTourDetail{
+    border-collapse: collapse;
+}
+
 #content{
     margin-right:280px;
     line-height:18px;
     padding: 50px;
     font-family: helvetica,arial,sans-serif;
+    margin-bottom: 150px;
 }
 #content #cart{
-    font-size: smaller;
+    width: 700px;
 }
 #content h2{
     padding: 0;
@@ -193,7 +213,7 @@ body{
     box-shadow: 0px 0px 1px 1px gray;
 }
 #sidebar-a .padding td a{
-    margin-left: 20px;
+    margin-left: 5px;
 }
 #footer{
     clear:both;
@@ -223,8 +243,13 @@ body{
 }
 
 #tour-items{
-    margin-right:300px;
+    text-align: center;
     line-height:18px;
+    padding:15px;
+}
+#tour-items img{
+    box-shadow: 0px 0px 2px 2px #ccc;
+    margin-bottom: 10px;
 }
 #tour-items h2{
     font-weight: bold;
@@ -251,19 +276,20 @@ body{
 #testTable table{
     margin-bottom: 5px;
     margin-top: 5px;
+    width: 600px;
 }
 #testTable .tableBackground{
     padding: 20px;
     background-color: #cccccc;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-bottom: 10px;
-    width: 420px;
+    width: 680px;
 }
 
 #testTable { 
-    width : 400px;
     margin-left: 20px;
     margin-right: auto; 
+    width: 600px;
 }
 #testTable2 .carTableBackground table td{
     padding-left: 3px;
@@ -275,13 +301,13 @@ body{
     background-color: #cccccc;
     border-radius: 10px;
     margin-bottom: 10px;
-    width: 420px;
+    width: 680px;
 }
 
-#testTable2 { 
-    width : 400px;
+#testTable2 {
     margin-left: 20px;
     margin-right: auto; 
+    width: 600px;
 }
 
 #tablePagination { 
@@ -307,6 +333,25 @@ body{
 
 #tablePagination_paginater { 
     float: right; 
+}
+
+#searchPanel{
+    background: #378A65;
+    padding: 5px;
+    box-shadow: 0px 0px 2px 2px #000;
+    visibility: hidden;
+    margin-top: 10px;
+    margin-right: 10px;
+    position: absolute;
+}
+
+#searchPanelButton{
+    text-align: center;
+    background: #333;
+    color: #fff;
+    font-weight: bold;
+    margin: 0px 100px;
+    padding: 10px;
 }
 
 body{

@@ -39,7 +39,7 @@
                             ArrayList cartList = (ArrayList) session.getAttribute("cartList");
                             if (cartList != null && cartList.size() > 0) {
                         %>
-                        <table width="400" border="1" id="CartTable">
+                        <table width="700" border="1" id="CartTable">
                             <tr>
                                 <th width="28"><div align="center">Tour ID</div></th>
                                 <th width="45"><div align="center">Tour Name</div></th>

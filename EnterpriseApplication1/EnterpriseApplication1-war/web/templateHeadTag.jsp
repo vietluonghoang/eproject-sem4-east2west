@@ -23,74 +23,77 @@
         font-weight: bold;
         box-shadow: 0px 0px 1px 1px #000;
         border: 0px;
+        cursor: pointer;
     }
     #btLogOut{
-        font-size: 0;
-        width: 88px;
-        height: 40px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/log_out_button.png) 0 0 no-repeat;
+        background-color: #ff6633;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        cursor: pointer;
     }
     #btViewOrder{
-        font-size: 0;
-        width: 72px;
-        height: 27px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/view-order-button.png) 0 0 no-repeat;
+        background-color: #009999;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        cursor: pointer;
     }
     #btBook{
-        font-size: 0;
-        width: 80px;
-        height: 26px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/book-button.png) 0 0 no-repeat;
+        background-color: #00cc00;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        cursor: pointer;
     }
 
     #btViewDetail{
-        font-size: 0;
-        width: 100px;
-        height: 27px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/view-detail-button.png) 0 0 no-repeat;
+        background-color: #4545F1;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        cursor: pointer;
     }
 
     #btSearch{
-        font-size: 0;
-        width: 77px;
-        height: 28px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/search-button.png) 0 0 no-repeat;
+        background-color: #515170;
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+        cursor: pointer;
     }
     #btCancel2{
-        font-size: 0;
-        width: 100px;
-        height: 26px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/Cancel-button-2.png) 0 0 no-repeat;
+        background-color: #ff3300;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        cursor: pointer;
     }
     #btConfirm{
-        font-size: 0;
-        width: 100px;
-        height: 44px;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: url(images/button/confirm-button.png) 0 0 no-repeat;
+        background-color: #4545F1;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        box-shadow: 0px 0px 1px 1px #000;
+        border: 0px;
+        cursor: pointer;
     }
 </style>
 <script>
+
     $(function() {
         $("#datepicker1").datepicker({dateFormat: 'yy-mm-dd'});
         $("#datepicker2").datepicker({dateFormat: 'yy-mm-dd'});
@@ -100,6 +103,14 @@
 
     $(document).ready(
             function() {
+                $(document).find("#searchPanelButton").click(function() {
+
+                    if ($(document).find("#searchPanel").css("visibility") === "visible") {
+                        $(document).find("#searchPanel").css("visibility", "hidden");
+                    }else{
+                        $(document).find("#searchPanel").css("visibility", "visible");
+                    }
+                });
                 $('tbody tr:odd', $('#menuTable')).show(); //hiding rows for test
                 var options = {
                     rowsPerPage: 18,

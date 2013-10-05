@@ -138,47 +138,7 @@
                 </style>
                 <!------------------------- CONTENT BEGIN ------------------------------>
 
-
-                <form action="NgocServlet" method="post">
-                    <table border="0">
-                        <tbody>
-                            <tr>
-                                <td>Model</td>
-                                <td><input type="text" name="$model" /></td>
-                            </tr>
-                            <tr>
-                                <td>Type</td>
-                                <td><input type="text" name="$type" /></td>
-                            </tr>
-                            <tr>
-                                <td>Seating capacity</td>
-                                <td><input type="text" name="$seat" /></td>
-                            </tr>
-                            <tr>
-                                <td>Airconditioner</td>
-                                <td><input type="radio" name="$airConditioner" value="yes" /> Yes
-                                    <input type="radio" name="$airConditioner" value="no" /> No</td>
-                            </tr>
-                            <tr>
-                                <td>stock quantity >=</td>
-                                <td><input type="text" name="$stock" /></td>
-                            </tr>
-                            <tr>
-                                <td>price from</td>
-                                <td><input type="text" name="$from" /> USD</td>
-                            </tr>
-                            <tr>
-                                <td>price to</td>
-                                <td><input type="text" name="$to" /> USD</td>
-                            </tr>
-                            <tr>
-                                <td><input type="submit" name="action" value="search" id="btSearch" /></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                <br/><br/>
+                
                 <%
                     //Context ctx = new InitialContext();
                     NgocStatelessRemote ngocStatelessRemote = (NgocStatelessRemote) ctx.lookup("NgocStatelessRemote");
