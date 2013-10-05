@@ -46,7 +46,7 @@ public class searchTourServlet extends HttpServlet {
              CustomerBeanRemote remote = (CustomerBeanRemote) ctx.lookup("CustomerBeanJNDI");
              HttpSession session = request.getSession(true);
              String action= request.getParameter("action");
-             if(action.equals("Search Location")){
+             if(action.equals("Search tour by location")){
                 //get the start location and the end location from jsp
                  String startLocation = request.getParameter("txtStartLocation");
                  String endLocation = request.getParameter("txtEndLocation");
@@ -56,7 +56,7 @@ public class searchTourServlet extends HttpServlet {
                  request.setAttribute("tourResultSearch", result);
                  request.getRequestDispatcher("EtourSearch.jsp").forward(request, response);
 
-             }else if(action.equals("Search Time")){
+             }else if(action.equals("Search tour by time")){
                 //get the start date and the end date from jsp
                  String startDate = request.getParameter("txtStartDate");
                  String endDate = request.getParameter("txtEndDate");

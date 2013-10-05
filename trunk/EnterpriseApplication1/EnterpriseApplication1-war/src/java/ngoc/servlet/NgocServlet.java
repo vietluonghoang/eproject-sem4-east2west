@@ -62,7 +62,7 @@ public class NgocServlet extends HttpServlet {
             Date $today = new SimpleDateFormat("yyyy/MM/dd").parse(
                     new SimpleDateFormat("yyyy/MM/dd").format(new Date()));//get today
 
-            if (action.equals("search")) {//if button is search
+            if (action.equals("search car")) {//if button is search
 //                int paging = Integer.parseInt(request.getParameter("paging"));
 
                 //if text field is not blank, criteria will be add to query to search
