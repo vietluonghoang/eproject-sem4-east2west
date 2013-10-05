@@ -40,6 +40,14 @@
 
 <!--  styled select box script version 2 -->
 <script src="js/jquery/jquery.selectbox-0.5_style_2.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="jquery/jquery-ui.css"/>
+<link rel="stylesheet" href="css/reset.css"/>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"/>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="jquery/jquery-ui.js"></script>
+<script src="jquery/jquery.tablePagination.0.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.styledselect_form_1').selectbox({inputClass: "styledselect_form_1"});
