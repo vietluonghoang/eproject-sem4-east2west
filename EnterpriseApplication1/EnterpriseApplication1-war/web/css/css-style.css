@@ -7,7 +7,7 @@
     padding-top: 1px;
     background-color: #ffffff;
     font-family: helvetica,arial,sans-serif;
-    min-height: 500px;
+    min-height: 1200px;
 }
 
 .secondWrap{
@@ -352,6 +352,7 @@ body{
     font-weight: bold;
     margin: 0px 100px;
     padding: 10px;
+    cursor: pointer;
 }
 
 body{
