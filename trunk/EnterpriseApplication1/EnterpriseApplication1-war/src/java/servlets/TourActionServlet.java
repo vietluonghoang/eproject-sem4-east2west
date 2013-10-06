@@ -230,6 +230,7 @@ public class TourActionServlet extends HttpServlet {
                             + "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" name=\"type\" value=\"Update\" /></td></tr></tbody>"
                             + "</table>"
                             + "</form>"
+                            +"<form action=\"AdminEditTourScheduleServlet\" method=\"post\"><input type=\"hidden\" name=\"id\" value=\""+rs.getInt("tourID")+"\"/><input type=\"submit\" name=\"type\" value=\"Edit Schedule\" /></form>"
                             + "</div>";
                 }
                 request.setAttribute("type", action);

@@ -41,6 +41,10 @@
         <servlet-name>TourActionServlet</servlet-name>
         <servlet-class>servlets.TourActionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminEditTourScheduleServlet</servlet-name>
+        <servlet-class>servlets.AdminEditTourScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerServlet</servlet-name>
         <url-pattern>/CustomerServlet</url-pattern>
@@ -92,6 +96,10 @@
     <servlet-mapping>
         <servlet-name>TourActionServlet</servlet-name>
         <url-pattern>/TourActionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditTourScheduleServlet</servlet-name>
+        <url-pattern>/AdminEditTourScheduleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
