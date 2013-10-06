@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Admin</title>
         <%@include file="templateAdminHead.jsp" %>
     </head>
     <body>
@@ -114,7 +114,7 @@
                     for (int i = 0; i < pagesnum; i++) {
                 %>
                 <td>
-                    <form action="CarReportServlet" method="POST" id="page<%=i%>">   
+                    <form action="TourReportServlet" method="POST" id="page<%=i%>">   
                         <%=qryData%>
                         <input type="hidden" name="action" value="<%=type%>" />
                         <input type="hidden" name="page" value="<%=i + 1%>"/>
@@ -134,7 +134,7 @@
                     for (int i = 0; i < pagesnum; i++) {
                 %>
                 <td>
-                    <form action="CarReportServlet" method="POST" id="page<%=i%>">   
+                    <form action="TourReportServlet" method="POST" id="page<%=i%>">   
                         <%=qryData%>
                         <input type="hidden" name="action" value="<%=type%>" />
                         <input type="hidden" name="page" value="<%=i + 1%>"/>

@@ -36,9 +36,9 @@
                         Tour result = (Tour) request.getAttribute("tourDetailResult");
                         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
                     %>
-                    <table width="150" border="0" align="center">
+                    <table width="700" border="0" align="center">
                         <tr>
-                            <td colspan="3"><img src="images/<%=result.getImageTour()%>" width="400" height="295"/>
+                            <td colspan="3"><img src="images/<%=result.getImageTour()%>" width="600" height="395"/>
                                 <input type="hidden" name="txtHiddenTourID" value="<%=result.getTourID()%>"/>
                             </td>
                         </tr>

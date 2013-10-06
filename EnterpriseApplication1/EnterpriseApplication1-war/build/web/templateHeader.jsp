@@ -166,16 +166,16 @@
             <form action="loginCustomerServlet" method="post">
                 <table width="200" border="0">
                     <tr>
-                        <td align="center"><strong>Welcome <%=username%></strong></td>
+                        <td><strong>Welcome <%=username%></strong></td>
                     </tr>
                     <tr>
-                        <td align="center"><a href="EcustomerInfo.jsp"><img src="images/button/view_profile_button-original.gif" /></a></td>
+                        <td><a href="EcustomerInfo.jsp">Profile</a></td>
                     </tr>
                     <tr>
-                        <td align="center"><input type="submit" name="action" value="View Order" id="btViewOrder"/></td>
+                        <td><input type="submit" name="action" value="View Order" id="btViewOrder"/></td>
                     </tr>
                     <tr>
-                        <td align="center"><input type="submit" name="action" value="Log Out" id="btLogOut" /></td>
+                        <td><input type="submit" name="action" value="Log Out" id="btLogOut" /></td>
                     </tr>
                     <tr>
                         <%
@@ -187,10 +187,12 @@
                                 cartItem = cartCheck.size();
                             }
                         %>
-                        <td align="center"><a href="EcartTour.jsp"><img src="images/button/view_cart_button.png" /></a></td>
+                        <td><a href="EcartTour.jsp"><img src="images/button/view_cart_button.png" /></a></td>
+                        <td><a href="carShoppingCart.jsp">car's cart</a></td>
+                    
                     </tr>
                     <tr>
-                        <td align="center"><strong>Item in cart :<%=cartItem%></strong></td>
+                        <td><strong>Item in cart :<%=cartItem%></strong></td>
                     </tr>
                 </table>
             </form>
@@ -199,98 +201,95 @@
             %>
         </form>
     </div>
-    <table width="200" border="0" align="center">
-        <form action="searchTourServlet" method="post">
-            <tr>
-                <td colspan="2" align="center"><h3>Search Tour By Location</h3></td>
-            </tr>
-            <tr>
-            <tr>
-                <td colspan="2">
-                    Start Location :<select name="txtStartLocation">
-                        <%
-                            Tour[] tour = remote.searchTourLocation("");
-                            for (int i = 0; i < tour.length; i++) {
+    <div id="searchPanelButton">
+        Search
+    </div>
+    <div id="searchPanel">
+        <table width="200" border="0" align="center">
+            <form action="searchTourServlet" method="post">
+                <tr>
+                <tr>
+                    <td colspan="2">
+                        Start Location :<select name="txtStartLocation">
+                            <%
+                                Tour[] tour = remote.searchTourLocation("");
+                                for (int i = 0; i < tour.length; i++) {
 
-                        %>
-                        <option><%=tour[i].getStartLocation()%></option>
-                        <%
-                            }
-                        %>
-                    </select><br/>
-                    End Location :
-                    <select name="txtEndLocation">
-                        <%
-                            for (int i = 0; i < tour.length; i++) {
+                            %>
+                            <option><%=tour[i].getStartLocation()%></option>
+                            <%
+                                }
+                            %>
+                        </select><br/>
+                        End Location :
+                        <select name="txtEndLocation">
+                            <%
+                                for (int i = 0; i < tour.length; i++) {
 
 
-                        %>
-                        <option><%=tour[i].getEndLocation()%></option>
-                        <%
-                            }
-                        %>
-                    </select><br/>
-                    <input type="submit" name="action" value="Search Location" align="right" id="btSearch"/>
+                            %>
+                            <option><%=tour[i].getEndLocation()%></option>
+                            <%
+                                }
+                            %>
+                        </select><br/>
+                        <input type="submit" name="action" value="Search tour by location" align="right" id="btSearch"/>
 
-                </td>
-            </tr>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><h3>Search Tour By Time</h3></td>
-            </tr>
-            <tr>
-                <td> From Date:</td>
-                <td><input type="text" name="txtStartDate" id="datepicker1"/></td>
-            </tr>
-            <tr>
-                <td>
-                    To Date:
-                </td>
-                <td>
-                    <input type="text" name="txtEndDate" id="datepicker2"/>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="action" value="Search Time" id="btSearch"/></td>
-                <td> </td>
-            </tr>
-        </form>
-        <tr>
-            <td colspan="2" align="center"><h3>SEARCH CAR</h3></td>
-        </tr>
-        <form action="TuanServlet" method="post">
-            <tr>
-                <td>Model</td>
-                <td><input type="text" name="$model" /></td>
-            </tr>
-            <tr>
-                <td>Type</td>
-                <td><input type="text" name="$type" /></td>
-            </tr>
-            <tr>
-                <td>Seating capacity</td>
-                <td><input type="text" name="$seat" /></td>
-            </tr>
-            <tr>
-                <td>Airconditioner</td>
-                <td><input type="radio" name="$airConditioner" value="yes" /> Yes
-                    <input type="radio" name="$airConditioner" value="no" /> No</td>
-            </tr>
-            <tr>
-                <td>stock quantity >=</td>
-                <td><input type="text" name="$stock" /></td>
-            </tr>
-            <tr>
-                <td>price from $</td>
-                <td><input type="text" name="$from" /></td>
-            </tr>
-            <tr>
-                <td>price to $</td>
-                <td><input type="text" name="$to" /></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="action" value="search" id="btSearch"/></td>
-            </tr>
-        </form>
-    </table>
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    <td> From Date:</td>
+                    <td><input type="text" name="txtStartDate" id="datepicker1"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        To Date:
+                    </td>
+                    <td>
+                        <input type="text" name="txtEndDate" id="datepicker2"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="action" value="Search tour by time" id="btSearch"/></td>
+                    <td> </td>
+                </tr>
+            </form>
+            <form action="NgocServlet" method="post">
+                <tr>
+                    <td>Model</td>
+                    <td><input type="text" name="$model" /></td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td><input type="text" name="$type" /></td>
+                </tr>
+                <tr>
+                    <td>Seating capacity</td>
+                    <td><input type="text" name="$seat" /></td>
+                </tr>
+                <tr>
+                    <td>Airconditioner</td>
+                    <td><input type="radio" name="$airConditioner" value="yes" /> Yes
+                        <input type="radio" name="$airConditioner" value="no" /> No</td>
+                </tr>
+                <tr>
+                    <td>stock quantity >=</td>
+                    <td><input type="text" name="$stock" /></td>
+                </tr>
+                <tr>
+                    <td>price from $</td>
+                    <td><input type="text" name="$from" /></td>
+                </tr>
+                <tr>
+                    <td>price to $</td>
+                    <td><input type="text" name="$to" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="action" value="search car" id="btSearch"/></td>
+                </tr>
+            </form>
+        </table>
+    </div>
 </div>
+

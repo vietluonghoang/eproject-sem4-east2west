@@ -39,7 +39,7 @@
 
         <!-- start logo -->
         <div id="logo">
-            <img width="156" height="40"src="images/logoAdmin.png"/>
+            <img width="600" src="images/logoAdmin.png"/>
         </div>
         <!-- end logo -->
 

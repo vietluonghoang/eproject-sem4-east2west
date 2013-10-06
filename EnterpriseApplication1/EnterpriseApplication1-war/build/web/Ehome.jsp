@@ -45,7 +45,7 @@
                                 for (int i = 0; i < result.length && i < 3; i++) {
                             %>
                             <div class="tableBackground">
-                                <table width="400" border="0">
+                                <table width="600" border="0">
                                     <tbody>
                                     <form action="CustomerServlet" method="post">
                                         <tr>
@@ -132,7 +132,7 @@
                             } else {
                                 resultCar = (Car[]) request.getAttribute("INFO");
                             }
-                            for (int i = resultCar.length - 1; i >= 0; i--) {
+                            for (int i = resultCar.length - 3; i >= 0; i--) {
                         %>
                         <div class="carTableBackground">
                             <table border="0" >
