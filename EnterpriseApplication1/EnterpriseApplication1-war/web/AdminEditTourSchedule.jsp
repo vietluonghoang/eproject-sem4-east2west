@@ -27,11 +27,22 @@
             int tourID = 0;
             String type = "";
             try {
-                String num = (String) request.getAttribute("pagenum");
-                pagenum = Integer.parseInt(num);
-                rs = (ResultSet) request.getAttribute("result");
-                tourID = (Integer) request.getAttribute("id");
-                type = (String) request.getAttribute("type");
+                try {
+                    pagenum = (Integer) request.getAttribute("pagenum");
+                } catch (Exception ex) {
+                }
+                try {
+                    rs = (ResultSet) request.getAttribute("result");
+                } catch (Exception ex) {
+                }
+                try {
+                    tourID = (Integer) request.getAttribute("id");
+                } catch (Exception ex) {
+                }
+                try {
+                    type = (String) request.getAttribute("type");
+                } catch (Exception ex) {
+                }
             } catch (Exception ex) {
 
         %>
@@ -42,30 +53,32 @@
         %>
     <div>
         <center>
-            <form action="AdminEditTourScheduleServlet" method="post">
+            <form action="AdminEditTourScheduleServlet" method="post" enctype="multipart/form-data">
                 <table>
                     <tr>
-                        <th >Image Tour</th>
+                        <th >Image Tour: </th>
                         <td><input type="file" accept="jpg|jpeg|gif|png" name="fileImage" /></td>
                     </tr>
                     <tr>
-                        <th>Description</th>
+                        <th>Description: </th>
                         <td><textarea name="description"></textarea></td>
                     </tr>
-                    <tr colspan="2">
-                    <input type="hidden" name="type" value="commitadd"/>
-                    <input type="submit" value="Add New"/>
+                    <tr>
+                        <td colspan="2">
+                            <input type="hidden" name="type" value="commitadd" />
+                            <input type="hidden" name="id" value="<%=tourID%>" />
+                            <input type="submit" value="Add New"/>
+                        </td>
                     </tr>
-                </table>
+                </table>                
             </form>
         </center>
     </div>
-    <%
-            }else if ("update".equals(type)) {
-        %>
+    <%    } else if ("update".equals(type)) {
+    %>
     <div>
         <center>
-            <form action="AdminEditTourScheduleServlet" method="post">
+            <form action="AdminEditTourScheduleServlet" method="post" enctype="multipart/form-data">
                 <table>
                     <tr>
                         <th >Image Tour</th>
@@ -77,11 +90,15 @@
                         <th>Description</th>
                         <td><textarea name="description"><%= rs.getString("description")%></textarea></td>
                     </tr>
-                    <tr colspan="2">
-                    <input type="hidden" name="type" value="commitupdate"/>
-                    <input type="submit" value="Update"/>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Update"/>
+                        </td>
                     </tr>
                 </table>
+                <input type="hidden" name="type" value="commitupdate"/>
+                <input type="hidden" name="id" value="<%=tourID %>"/>
+                <input type="hidden" name="scheduleID" value="<%=rs.getInt("scheduleID") %>"/>
             </form>
         </center>
     </div>
@@ -98,9 +115,10 @@
                 </tr>
                 <%
                     int numOfEntitiesPerPages = 3;
-                    while (rs.next()) {
-                        if ((numOfElements > (pagenum - 1) * (numOfEntitiesPerPages))
-                                && (numOfElements <= pagenum * (numOfEntitiesPerPages))) {
+                    try {
+                        while (rs.next()) {
+                            if ((numOfElements > (pagenum - 1) * (numOfEntitiesPerPages))
+                                    && (numOfElements <= pagenum * (numOfEntitiesPerPages))) {
                 %>
 
                 <tr>
@@ -122,23 +140,29 @@
                             <input type="hidden" name="scheduleID" value="<%=rs.getInt("scheduleID")%>"/>
                             <input type="hidden" name="id" value="<%=tourID%>"/>
                             <input type="hidden" name="type" value="delete"/>
-                            <input type="submit" value="Update"/>
+                            <input type="submit" value="Delete"/>
                         </form>
                     </td>
                 </tr> 
                 <%
+                            }
+                            numOfElements++;
                         }
-                        numOfElements++;
+                    } catch (Exception ex) {
                     }
                 %> 
             </tbody>
-        </table>
+        </table>    
+    </div>
+    <br/>
+    <div>
         <form action="AdminEditTourScheduleServlet" method="post">
             <input type="hidden" name="id" value="<%=tourID%>"/>
             <input type="hidden" name="type" value="addnew"/>
             <input type="submit" value="Add new Schedule"/>
         </form>
     </div>
+    <br/>
     <div id="pagingsection" align="center">
         <table border="1" cellspacing="5"><tr>
                 <%
