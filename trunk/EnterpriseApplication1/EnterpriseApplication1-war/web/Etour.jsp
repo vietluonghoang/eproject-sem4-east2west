@@ -77,8 +77,8 @@
                                                     String start = result[i].getStartDate();
                                                     String end = result[i].getEndDate();
 
-                                                    Date s = dateFormat.parse(start);
-                                                    Date e = dateFormat.parse(end);
+                                                    Date s = format.parse(start);
+                                                    Date e = format.parse(end);
 
                                                     long day = (e.getTime() - s.getTime()) / 86400000;
 
