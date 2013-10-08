@@ -222,7 +222,7 @@ public class AdminEditTourScheduleServlet extends HttpServlet {
             if ("commitadd".equals(type)) {
                 String qry = "";
                 if (!"".equals(image1)&&!"".equals(description)) {
-                    qry = "insert into ScheduleTour value(" + tourID + ",'" + image1 + "', '" + description + "')";
+                    qry = "insert into ScheduleTour values(" + tourID + ",'" + image1 + "', '" + description + "')";
                 }else{
                     return false;
                 }

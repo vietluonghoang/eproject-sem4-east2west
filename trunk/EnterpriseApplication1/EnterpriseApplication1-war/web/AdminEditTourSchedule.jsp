@@ -19,7 +19,7 @@
             $page = "search";
         %>
         <%@include file="templateAdminHeader.jsp" %>
-        <br/><br/><a href="AdminTourSearch.jsp">Back to Tour Search.</a>
+        <br/><a href="AdminTourSearch.jsp">Back to Tour Search.</a><br/>
         <%
             ResultSet rs = null;
             int pagenum = 1;
@@ -78,6 +78,9 @@
     %>
     <div>
         <center>
+            <%
+                while(rs.next()){
+            %>
             <form action="AdminEditTourScheduleServlet" method="post" enctype="multipart/form-data">
                 <table>
                     <tr>
@@ -100,6 +103,7 @@
                 <input type="hidden" name="id" value="<%=tourID %>"/>
                 <input type="hidden" name="scheduleID" value="<%=rs.getInt("scheduleID") %>"/>
             </form>
+            <%}%>
         </center>
     </div>
     <%                    } else {
@@ -124,7 +128,7 @@
                 <tr>
 
                     <td><%=numOfElements%></td>
-                    <td><img src="<%= rs.getString("imageSchedule")%>" width="150"/> </td>
+                    <td><img src="images\<%= rs.getString("imageSchedule")%>" width="150"/> </td>
                     <td><%= rs.getString("description")%></td>
 
                     <td>

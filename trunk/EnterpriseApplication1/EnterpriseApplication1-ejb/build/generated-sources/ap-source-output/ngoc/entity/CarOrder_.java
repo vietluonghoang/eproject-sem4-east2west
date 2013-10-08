@@ -8,7 +8,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import ngoc.entity.CarOrderDetail;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-10-07T17:52:21")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2013-10-08T14:16:30")
 @StaticMetamodel(CarOrder.class)
 public class CarOrder_ { 
 
